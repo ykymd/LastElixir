@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
 		MoveBlock();
 	}
 
-<<<<<<< HEAD
     private void MoveBlock()
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)
