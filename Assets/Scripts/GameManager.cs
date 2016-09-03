@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject block = null;
+    private GameObject[] block;
 
     private GameObject blocks;
 
@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)
         {
+            var index = Random.Range(0, block.Length);
             Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-            var obj = Utility.Instantiate(blocks, block);
+            var obj = Utility.Instantiate(blocks, block[index]);
             obj.transform.position = position;
         }
     }
