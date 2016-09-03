@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] block;
+    [SerializeField]
+    private Background background = null;
 
     public static List<GameObject> blList = new List<GameObject>();
 //落ちたブロックの参照保存先
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
                 collider.enabled = true;
             }
             blList.Add(movingBlock);//落ちたブロックを順々に保存
+            background.TrackObject = movingBlock;
             movingBlock = null;
         }
     }
