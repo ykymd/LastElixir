@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] block;
-    [SerializeField]
-    private Background background = null;
 
+	public static List<GameObject> blList = new List<GameObject> ();//落ちたブロックの参照保存先
     private GameObject blocks;
     private GameObject movingBlock;
 
@@ -44,11 +44,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Touch End");
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
-            if (background != null)
-            {
-                background.TrackObject = movingBlock;
-            }
+			blList.Add(movingBlock);//落ちたブロックを順々に保存
             movingBlock = null;
         }
     }
+
+	public GameObject GetList(){
+		GameObject obj = blList[0];
+		blList.RemoveAt(0);
+		return obj;
+	}
+		
 }
