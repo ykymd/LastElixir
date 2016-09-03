@@ -24,6 +24,7 @@ GameObject:
   - 61: {fileID: 61000012248156060}
   - 61: {fileID: 61000012560161926}
   - 114: {fileID: 114000011800380652}
+  - 114: {fileID: 114000011634470982}
   m_Layer: 0
   m_Name: zombie2
   m_TagString: Untagged
@@ -89,6 +90,17 @@ BoxCollider2D:
   m_Offset: {x: -1.862474, y: 4.5262094}
   serializedVersion: 2
   m_Size: {x: 2.2750463, y: 3.1957216}
+--- !u!114 &114000011634470982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012205268318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c548d802db8e849e2a2076939988b9e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011800380652
 MonoBehaviour:
   m_ObjectHideFlags: 1

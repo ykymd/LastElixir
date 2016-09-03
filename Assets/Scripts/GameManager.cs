@@ -4,28 +4,32 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+
     [SerializeField]
     private GameObject[] block;
     [SerializeField]
     private Background background = null;
 
-    public static List<GameObject> blList = new List<GameObject>();
-//落ちたブロックの参照保存先
-    private GameObject blocks;
-    private GameObject movingBlock;
+	public static List<GameObject> blList = new List<GameObject>();
+	//落ちたブロックの参照保存先
+	private GameObject blocks;
+	private GameObject movingBlock;
 
 
-    void Start()
-    {
-        blocks = new GameObject("Blocks");
-    }
+	void Start()
+	{
+		Time.timeScale = 0.0F;
+		blocks = new GameObject("Blocks");
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        MoveBlock();
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		Debug.Log(Time.timeScale);
+		MoveBlock();
+	}
 
+<<<<<<< HEAD
     private void MoveBlock()
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
+			Time.timeScale = 1.0F;
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
             movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
             foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
@@ -61,11 +66,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject GetList()
-    {
-        GameObject obj = blList[0];
-        blList.RemoveAt(0);
-        return obj;
-    }
+
+	public GameObject GetList()
+	{
+		GameObject obj = blList[0];
+		blList.RemoveAt(0);
+		return obj;
+	}
 		
 }
