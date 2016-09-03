@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] block;
 
-	public static List<GameObject> blList = new List<GameObject> ();//落ちたブロックの参照保存先
+    public static List<GameObject> blList = new List<GameObject>();
+//落ちたブロックの参照保存先
     private GameObject blocks;
     private GameObject movingBlock;
 
@@ -27,12 +28,16 @@ public class GameManager : MonoBehaviour
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)
         {
-            Debug.Log("Touch Start");
             var index = Random.Range(0, block.Length);
             Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
             var obj = Utility.Instantiate(blocks, block[index]);
             obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
             obj.transform.position = position;
+            obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
+            foreach (var collider in obj.GetComponents<BoxCollider2D>())
+            {
+                collider.enabled = false;
+            }
             movingBlock = obj;
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Moved)
@@ -42,17 +47,22 @@ public class GameManager : MonoBehaviour
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
-            Debug.Log("Touch End");
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
-			blList.Add(movingBlock);//落ちたブロックを順々に保存
+            movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
+            foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
+            {
+                collider.enabled = true;
+            }
+            blList.Add(movingBlock);//落ちたブロックを順々に保存
             movingBlock = null;
         }
     }
 
-	public GameObject GetList(){
-		GameObject obj = blList[0];
-		blList.RemoveAt(0);
-		return obj;
-	}
+    public GameObject GetList()
+    {
+        GameObject obj = blList[0];
+        blList.RemoveAt(0);
+        return obj;
+    }
 		
 }
