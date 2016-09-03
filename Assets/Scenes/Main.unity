@@ -541,6 +541,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011067024066, guid: 9e4acefcd2258483cb7ad046c494abef, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -578,6 +583,48 @@ Prefab:
       propertyPath: background
       value: 
       objectReference: {fileID: 1347178721}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[2]
+      value: 
+      objectReference: {fileID: 1000013276859472, guid: df4cde7a51426465d881991d7f68721b,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[3]
+      value: 
+      objectReference: {fileID: 1000013271781294, guid: b895d3a365c29475bb1eca8287e951a0,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[4]
+      value: 
+      objectReference: {fileID: 1000012975608944, guid: 449122e4488dc429c83a6ff30bf4bc0e,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[5]
+      value: 
+      objectReference: {fileID: 1000011835371588, guid: 62bd86b3eeb6146f9960f4de2d450b38,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[6]
+      value: 
+      objectReference: {fileID: 1000012726285146, guid: 68a24e6593fce417bb3877bc000aa3e1,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[0]
+      value: 
+      objectReference: {fileID: 1000010061109034, guid: 6653e027fc8d84d14a1cab9a4fc47003,
+        type: 2}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: block.Array.data[1]
+      value: 
+      objectReference: {fileID: 1000012205268318, guid: 9f26a4859f39c43f89cc4a1faddbbc3d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e4acefcd2258483cb7ad046c494abef, type: 2}
   m_IsPrefabParent: 0
