@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refObj: {fileID: 2126663738}
+  candy: {fileID: 1000010630838718, guid: 436982aa52cfb44ca8b1ffb42708143f, type: 2}
 --- !u!1 &1347178716
 GameObject:
   m_ObjectHideFlags: 0
