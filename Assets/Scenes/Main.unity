@@ -489,12 +489,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
         type: 2}
-      propertyPath: block.Array.data[0]
-      value: 
-      objectReference: {fileID: 1000011202509986, guid: 63724ed53e1634246a9a689833dc6eae,
-        type: 2}
-    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
-        type: 2}
       propertyPath: block.Array.data[1]
       value: 
       objectReference: {fileID: 1000010406911244, guid: fa0290b8546524d28a79688ae441d4e8,
