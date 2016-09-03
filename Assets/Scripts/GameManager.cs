@@ -5,9 +5,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] block;
+    [SerializeField]
+    private Background background = null;
 
     private GameObject blocks;
     private GameObject movingBlock;
+
 
     void Start()
     {
@@ -41,6 +44,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Touch End");
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
+            if (background != null)
+            {
+                background.TrackObject = movingBlock;
+            }
             movingBlock = null;
         }
     }
