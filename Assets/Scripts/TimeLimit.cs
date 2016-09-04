@@ -12,11 +12,11 @@ public class TimeLimit : MonoBehaviour {
 	
 	}
 
-    //オブジェクトが衝突したとき
+    /*オブジェクトが衝突したとき指定されたコルーチンを呼び出す
     void OnCollisionEnter2D(Collision2D collision) {
-        //指定されたコルーチンを呼び出す
         Debug.Log("Cpllision");
         StartCoroutine("DelayMethod");
+
     }
         
     private IEnumerator DelayMethod(){
@@ -24,6 +24,6 @@ public class TimeLimit : MonoBehaviour {
         yield return new WaitForSeconds(3.0F);//この下のものを３秒後に実行
         Debug.Log("Delay call");
         Time.timeScale = 0.0F;
-    }
+    }*/
 
 }

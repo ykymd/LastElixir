@@ -24,6 +24,7 @@ GameObject:
   - 61: {fileID: 61000012248156060}
   - 61: {fileID: 61000012560161926}
   - 114: {fileID: 114000011800380652}
+  - 114: {fileID: 114000012552729052}
   m_Layer: 0
   m_Name: zombie2
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012205268318}
   m_UseAutoMass: 1
-  m_Mass: 4.7569423
+  m_Mass: 2.1141963
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -100,6 +101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0f4e6fcd9114291b9b2db5071e3d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000012552729052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012205268318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43576324951d24037996284b6d703d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refObj: {fileID: 0}
 --- !u!212 &212000012734776608
 SpriteRenderer:
   m_ObjectHideFlags: 1
