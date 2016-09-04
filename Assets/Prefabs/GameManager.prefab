@@ -64,3 +64,5 @@ MonoBehaviour:
   SubCamera: {fileID: 0}
   ResultBoard: {fileID: 1000012575589986, guid: 14d4c5282dc004d93a8e3d817d1b721b,
     type: 2}
+  eventAlerts:
+  - {fileID: 1000013948320674, guid: 638975eb709d545c9b9ec42bc2c54002, type: 2}

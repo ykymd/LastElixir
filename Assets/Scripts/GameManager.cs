@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject ResultBoard = null;
 
+    [SerializeField]
+    private GameObject[] eventAlerts;
+
     private CameraManager cameMane;
     //カメラチェンジ用のスクリプト
 
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
     private Rect judgeArea = new Rect(0, 0, 0, 0);
     private GameObject judgeTarget = null;
     private bool IsGameOver = false;
+    private bool IsFeverTime = false;
 
     private float maxHeight = 0f;
 
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour
         eventcount = 0;
         eventType = 0;
         IsGameOver = false;
+        StartCoroutine(FeverTime());
     }
 
     private List<int> GenerateZombieList()
@@ -190,8 +195,28 @@ public class GameManager : MonoBehaviour
                 eventcount++;
                 eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
                 nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
+
+                switch (eventType)
+                {
+                    case 0:
+                        // フィーバータイム
+                        StartCoroutine(FeverTime());
+                        break;
+                }
             }
         }
+    }
+
+    IEnumerator FeverTime()
+    {
+        var alert = Utility.InstantiateGetComponent<EventAlert>(Camera.main.gameObject, eventAlerts[0]);
+        Freeze();
+        IsFeverTime = true;
+
+        yield return new WaitForSeconds(10f);
+
+        alert.Ended();
+        IsFeverTime = false;
     }
 
     public void Freeze()
@@ -237,6 +262,7 @@ public class GameManager : MonoBehaviour
         judgeArea = new Rect(position.x - range / 2, position.y - range / 2, range, range);
         Debug.Log(judgeArea);
         judgeTarget = obj;
+        if (IsFeverTime) obj.GetComponent<Rigidbody2D>().Pause(block.gameObject);
         //obj.GetComponent<GetTopPosition>().enabled = false;
     }
 
@@ -329,6 +355,7 @@ public class GameManager : MonoBehaviour
         for (int i = ListSize - 1; i >= 0; i--)
         {
             block = GetAndRemoveList(); //最後尾のブロック要素をオブジェクトに保存
+            block.GetComponent<Rigidbody2D>().Resume(block.gameObject);
             block.GetComponent<Rigidbody2D>().velocity = new Vector3(1.0f * UnityEngine.Random.Range(-5.0f, 5.0f), 10.0f * UnityEngine.Random.value, 0);
         }
     }
