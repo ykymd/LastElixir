@@ -245,6 +245,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42608462}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &81814881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 81814883}
+  - 114: {fileID: 81814882}
+  m_Layer: 0
+  m_Name: BoomManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &81814882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 81814881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7de1c8ca37e43f58b7fa5ff8336076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  refObj: {fileID: 2126663738}
+  boomPrefab: {fileID: 100002, guid: f36e3b1ff9efea849bc40abe16c513a0, type: 2}
+--- !u!4 &81814883
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 81814881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &392495498
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +928,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   refObj: {fileID: 2126663738}
   candy: {fileID: 1000010630838718, guid: 436982aa52cfb44ca8b1ffb42708143f, type: 2}
+  gamemanager: {fileID: 0}
+  candies: {fileID: 0}
 --- !u!1 &1347178716
 GameObject:
   m_ObjectHideFlags: 0
