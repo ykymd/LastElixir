@@ -17,8 +17,14 @@ public class GameManager : MonoBehaviour
     private Image nextZombieImage2 = null;
 
     [SerializeField]
-    private GameObject SubCamera;//サブカメラ
-    private CameraManager cameMane;//カメラチェンジ用のスクリプト
+    private GameObject SubCamera;
+    //サブカメラ
+
+    [SerializeField]
+    private GameObject ResultBoard = null;
+
+    private CameraManager cameMane;
+    //カメラチェンジ用のスクリプト
 
     public static List<GameObject> blList = new List<GameObject>();
     //落ちたブロックの参照保存先
@@ -40,8 +46,9 @@ public class GameManager : MonoBehaviour
     private int eventType = 0;
 
     // ゲームオーバー判定
-    private Rect judgeArea = new Rect(0,0,0,0);
+    private Rect judgeArea = new Rect(0, 0, 0, 0);
     private GameObject judgeTarget = null;
+    private bool IsGameOver = false;
 
     void Start()
     {
@@ -54,6 +61,7 @@ public class GameManager : MonoBehaviour
         nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
         eventcount = 0;
         eventType = 0;
+        IsGameOver = false;
     }
 
     private List<int> GenerateZombieList()
@@ -88,6 +96,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsGameOver)
+            return;
+
         CheckFlick();
         UpdateNextZombieImage();
         MoveBlock();
@@ -106,7 +117,8 @@ public class GameManager : MonoBehaviour
 
         if (!judgeArea.Contains(judgeTarget.transform.position))
         {
-            Debug.Log("GameOver");
+            FaiureAction();
+            StartCoroutine(ShowResult());
         }
     }
 
@@ -188,11 +200,14 @@ public class GameManager : MonoBehaviour
 
     public void GenerateZombie()
     {
+        if (IsGameOver)
+            return;
+
         Vector3 position = MultiTouch.GetTouchWorldPosition(Camera.main);
         var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
-        Debug.Log("ZombiePosition"+ obj.transform.position );
+        Debug.Log("ZombiePosition" + obj.transform.position);
         obj.transform.rotation = nextZombieImage.transform.rotation;
         obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
         foreach (var collider in obj.GetComponents<BoxCollider2D>())
@@ -287,9 +302,29 @@ public class GameManager : MonoBehaviour
         return blList.Count;
     }
 
-    public void Gameover(){//カメラのチェンジ
+    public void Gameover()
+    {//カメラのチェンジ
         SubCamera.SetActiveRecursively(true);
         cameMane = SubCamera.GetComponent<CameraManager>();
         cameMane.CameraZoomOut();
+    }
+
+    private void FaiureAction()
+    {
+        IsGameOver = true;
+        int ListSize = ReturnListSize(); //要素数を保存
+        GameObject block;
+
+        for (int i = ListSize - 1; i >= 0; i--)
+        {
+            block = GetAndRemoveList(); //最後尾のブロック要素をオブジェクトに保存
+            block.GetComponent<Rigidbody2D>().velocity = new Vector3(1.0f * UnityEngine.Random.Range(-5.0f, 5.0f), 10.0f * UnityEngine.Random.value, 0);
+        }
+    }
+
+    IEnumerator ShowResult()
+    {
+        yield return new WaitForSeconds(3);
+        Utility.Instantiate(null, ResultBoard);
     }
 }
