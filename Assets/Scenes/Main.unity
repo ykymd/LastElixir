@@ -665,6 +665,48 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.5
+--- !u!1001 &787480430
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012234128264, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0be6c86bb3976411da3f700b109cb565, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &896812895
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,10 +1009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7e20283b170422f80783a5c563cf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refObj: {fileID: 2126663738}
-  candy: {fileID: 1000010630838718, guid: 436982aa52cfb44ca8b1ffb42708143f, type: 2}
-  gamemanager: {fileID: 0}
-  candies: {fileID: 0}
 --- !u!1 &1347178716
 GameObject:
   m_ObjectHideFlags: 0
