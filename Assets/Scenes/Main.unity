@@ -1515,11 +1515,6 @@ Prefab:
       propertyPath: nextZombieImage
       value: 
       objectReference: {fileID: 1253230836}
-    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
-        type: 2}
-      propertyPath: rotateSlider
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e4acefcd2258483cb7ad046c494abef, type: 2}
   m_IsPrefabParent: 0
