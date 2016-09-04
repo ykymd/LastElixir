@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour {
 	}
 
     public void CameraZoomOut(){
+        background.transform.position = new Vector3 (0.0F,55.5F,-1F);
         this.transform.position = refObj.transform.position + new Vector3 (0, 0, -10);;
         Debug.Log("previoustCamera"+refObj.transform.position);
         Debug.Log("nextCamera"+this.transform.position);

@@ -90,15 +90,17 @@ public class GameManager : MonoBehaviour
     {
         CheckFlick();
         UpdateNextZombieImage();
-
         MoveBlock();
 
-        if(Input.GetKeyDown(KeyCode.C)) Gameover();//C押されたらカメラチェンジ
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Gameover();//C押されたらカメラチェンジ
+        }
         CheckGameOver();
     }
 
     private void CheckGameOver()
-    {
+    {        
         if (judgeArea.width == 0)
             return;
 
@@ -152,6 +154,7 @@ public class GameManager : MonoBehaviour
                 collider.enabled = true;
             }
             blList.Add(movingBlock);//落ちたブロックを順々に保存
+            background.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
             nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
@@ -185,10 +188,11 @@ public class GameManager : MonoBehaviour
 
     public void GenerateZombie()
     {
-        Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
+        Vector3 position = MultiTouch.GetTouchWorldPosition(Camera.main);
         var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
+        Debug.Log("ZombiePosition"+ obj.transform.position );
         obj.transform.rotation = nextZombieImage.transform.rotation;
         obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
         foreach (var collider in obj.GetComponents<BoxCollider2D>())
