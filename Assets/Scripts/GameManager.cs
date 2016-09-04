@@ -270,6 +270,13 @@ public class GameManager : MonoBehaviour
         return obj;
     }
 
+    public Transform GetMiddleList()
+    {
+        GameObject obj = blList[(int)(blList.Count/2)];//Listの中間の要素を渡す
+        Debug.Log("MiddleOriginalPosi"+obj.transform.position.y);
+        return obj.transform;//中間要素の位置情報渡す
+    }
+
     private void CheckFlick()
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)

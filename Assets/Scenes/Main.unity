@@ -254,6 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refObj: {fileID: 2126663738}
+  cameraManager: {fileID: 1378546252}
+  SubCamera: {fileID: 1378546246}
   boomPrefab: {fileID: 100002, guid: f36e3b1ff9efea849bc40abe16c513a0, type: 2}
 --- !u!4 &81814883
 Transform:
@@ -1441,6 +1443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   refObj: {fileID: 1563518321}
   background: {fileID: 1206984272}
+  gamemanager: {fileID: 2126663739}
 --- !u!1 &1390447025
 GameObject:
   m_ObjectHideFlags: 0
