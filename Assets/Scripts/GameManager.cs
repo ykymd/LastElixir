@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private Background background = null;
     [SerializeField]
     private Image nextZombieImage = null;
+    [SerializeField]
+    private Image nextZombieImage2 = null;
 
     [SerializeField]
     private GameObject SubCamera;//サブカメラ
@@ -71,11 +73,15 @@ public class GameManager : MonoBehaviour
         if (nextZombieNum == -1 || zombieMoving)
         {
             nextZombieImage.gameObject.SetActive(false);
+            //nextZombieImage2.gameObject.SetActive(false);
         }
         else
         {
             nextZombieImage.gameObject.SetActive(true);
             nextZombieImage.sprite = block[nextZombieNum].GetComponent<SpriteRenderer>().sprite;
+            nextZombieImage2.gameObject.SetActive(true);
+            var num = nextZombie[0];
+            nextZombieImage2.sprite = block[num].GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -151,8 +157,11 @@ public class GameManager : MonoBehaviour
             nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
             nextZombieNum = nextZombie[0];
             nextZombie.RemoveAt(0);
-            if (nextZombie.Count() <= 0)
-                nextZombie = GenerateZombieList();
+            if (nextZombie.Count() <= 1)
+            {
+                var list = GenerateZombieList();
+                nextZombie.AddRange(list);
+            }
 
             // イベント発生の確認
             piledZombies++;
