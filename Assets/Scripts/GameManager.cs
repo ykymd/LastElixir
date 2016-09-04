@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		Time.timeScale = 0.0F;
+		//Time.timeScale = 0.0F;
 		blocks = new GameObject("Blocks");
 	}
 
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
-			Time.timeScale = 1.0F;
+			//Time.timeScale = 1.0F;
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
             movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
             foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
