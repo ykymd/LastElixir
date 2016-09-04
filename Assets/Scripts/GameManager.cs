@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CheckFlick();
+        CheckFlick();
         UpdateNextZombieImage();
 
         MoveBlock();
@@ -161,11 +161,6 @@ public class GameManager : MonoBehaviour
             var aTapPoint = Camera.main.ScreenToWorldPoint(startTouchPos);
             var aCollider2d = Physics2D.OverlapPoint(aTapPoint);
 
-            if (aCollider2d) {
-                GameObject obj = aCollider2d.transform.gameObject;
-                Debug.Log(obj.name);
-            }
-
             if (direction.x < 0)
             {
                 Debug.Log("LEFT");
@@ -176,6 +171,24 @@ public class GameManager : MonoBehaviour
                 Debug.Log("RIGHT");
                 nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
             }
+
+            /*
+            if (aCollider2d) {
+                GameObject obj = aCollider2d.transform.gameObject;
+                Debug.Log(obj.name);
+
+                if (direction.x < 0)
+                {
+                    Debug.Log("LEFT");
+                    nextZombieImage.transform.Rotate(new Vector3(0, 0, 90f));
+                }
+                else if (direction.x > 0)
+                {
+                    Debug.Log("RIGHT");
+                    nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
+                }
+            }
+            */
         }
     }
 
