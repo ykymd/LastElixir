@@ -7,7 +7,6 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject[] block;
     [SerializeField]
@@ -31,14 +30,6 @@ public class GameManager : MonoBehaviour
         nextZombie = GenerateZombieList();
         nextZombieNum = nextZombie[0];
         nextZombie.RemoveAt(0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateNextZombieImage();
-
-        MoveBlock();
     }
 
     private List<int> GenerateZombieList()
@@ -66,15 +57,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RotateRight()
-    {
-        nextZombieImage.transform.Rotate(0, 0, -90f);
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		UpdateNextZombieImage();
 
-    public void RotateLeft()
-    {
-        nextZombieImage.transform.Rotate(0, 0, 90f);
-    }
+		MoveBlock();
+	}
 
     private void MoveBlock()
     {
@@ -107,22 +96,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GenerateZombie()
-    {
-        Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-        var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
-        obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
-        obj.transform.position = position;
-        obj.transform.rotation = nextZombieImage.transform.rotation;
-        obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
-        foreach (var collider in obj.GetComponents<BoxCollider2D>())
-        {
-            collider.enabled = false;
-        }
-        movingBlock = obj;
-        zombieMoving = true;
-    }
-
     public void Freeze()
     {
         foreach (var block in blList)
@@ -131,11 +104,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject GetList()
+	public void GenerateZombie()
+	{
+		Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
+		var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
+		obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
+		obj.transform.position = position;
+		obj.transform.rotation = nextZombieImage.transform.rotation;
+		obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
+		foreach (var collider in obj.GetComponents<BoxCollider2D>())
+		{
+			collider.enabled = false;
+		}
+		movingBlock = obj;
+		zombieMoving = true;
+ 
+        obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
+	}
+
+    void GetTop()
     {
-        GameObject obj = blList[0];
-        blList.RemoveAt(0);
-        return obj;
+        Debug.Log("Cpllision");
+        GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
+        Vector2 position = block.transform.position;//そのブロックの座標を取ってくる
+        Debug.Log(position.y);
     }
+
+
+	public GameObject GetLastList()//Listの最後尾の要素を渡す
+	{
+		GameObject obj = blList[blList.Count - 1];
+		return obj;
+	}
+
+	public GameObject GetAndRemoveList()
+	{
+		GameObject obj = blList[blList.Count - 1];//Listの最後尾の要素を渡す
+		blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
+		return obj;
+	}
 		
 }
