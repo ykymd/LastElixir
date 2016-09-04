@@ -10,12 +10,12 @@ public class CandyGenerator : MonoBehaviour
 
 	[SerializeField]
 	private GameObject candy;
-//画像
+	//画像
 
 	GameManager gamemanager;
-//リストの中のブロックオブジェクトを参照するため
+	//リストの中のブロックオブジェクトを参照するため
 	private GameObject candies;
-//candyオブジェクトの親
+	//candyオブジェクトの親
 
 	// Use this for initialization
 	void Start()
@@ -35,7 +35,7 @@ public class CandyGenerator : MonoBehaviour
 
 	private void GetBlockPosition()
 	{
-		GameObject block = gamemanager.GetList(); //先頭のブロック要素をオブジェクトに保存
+		GameObject block = gamemanager.GetAndRemoveList(); //最後尾のブロック要素をオブジェクトに保存
 		Vector2 position = block.transform.position;//そのブロックの座標を取ってくる
 		var obj = Utility.Instantiate(candies, candy);//親の指定と画像指定
 		//obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
