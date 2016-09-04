@@ -257,6 +257,8 @@ MonoBehaviour:
   cameraManager: {fileID: 1378546252}
   SubCamera: {fileID: 1378546246}
   boomPrefab: {fileID: 100002, guid: f36e3b1ff9efea849bc40abe16c513a0, type: 2}
+  ResultBoard: {fileID: 1000012575589986, guid: 14d4c5282dc004d93a8e3d817d1b721b,
+    type: 2}
 --- !u!4 &81814883
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,10 @@ public class BoomManager : MonoBehaviour
     int ListSize;
     GameObject block;
 
+    [SerializeField]
+    private GameObject ResultBoard = null;
+    float height;
+
     Transform middlePosition;//中間要素の位置情報
 
 
@@ -38,6 +42,7 @@ public class BoomManager : MonoBehaviour
 
     public void StartBoom()
     {
+        height = gamemanager.GetHighestObject().transform.position.y / 1.25f;
         ListSize = gamemanager.ReturnListSize(); //要素数を保存
         //middlePosition = gamemanager.GetMiddleList();//中間要素の位置情報
         StartCoroutine("DelayMethod");
@@ -61,7 +66,7 @@ public class BoomManager : MonoBehaviour
             //配置
             var obj = Utility.Instantiate(boomPrefab, placePosition, q);
 
-            if (i == ListSize - 4)//４匹目が爆発するときにズームアウトと減速
+            if (i != 0 && i == ListSize - 4)//４匹目が爆発するときにズームアウトと減速
             {
                 SubCamera.SetActiveRecursively(true);
                 cameraManager.CameraZoomOut();
@@ -78,11 +83,15 @@ public class BoomManager : MonoBehaviour
                 Destroy(obj, 1.0F);
                 yield return new WaitForSeconds(0.8F);//ここで一回この関数やめる。0.8秒後にここに戻ってきて続きをし始める。
             }
-                
-
         }
 
-  
+        //ここで全部爆破し終わっている
+        yield return new WaitForSeconds(1);
+        var resultBoard = Utility.InstantiateGetComponent<ResultBoard>(null, ResultBoard);
+
+        int rank = (int)(height / 5f);
+        float next = 5f - (height % 5f);
+        resultBoard.SetScore((int)height, rank, next);
 
     }
 

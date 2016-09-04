@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
         //obj.GetComponent<GetTopPosition>().enabled = false;
     }
 
-    private GameObject GetHighestObject()
+    public GameObject GetHighestObject()
     {
         GameObject highest = null;
         foreach (var obj in blList)
