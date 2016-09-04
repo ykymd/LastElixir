@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     private GameObject judgeTarget = null;
     private bool IsGameOver = false;
 
+    private float maxHeight = 0f;
+
     void Start()
     {
         blocks = new GameObject("Blocks");
@@ -117,6 +119,8 @@ public class GameManager : MonoBehaviour
 
         if (!judgeArea.Contains(judgeTarget.transform.position))
         {
+            var obj = GetHighestObject();
+            maxHeight = obj.transform.position.y;
             FaiureAction();
             StartCoroutine(ShowResult());
         }
@@ -325,6 +329,10 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowResult()
     {
         yield return new WaitForSeconds(3);
-        Utility.Instantiate(null, ResultBoard);
+        var resultBoard = Utility.InstantiateGetComponent<ResultBoard>(null, ResultBoard);
+        var height = maxHeight / 1.25f;
+        int rank = (int)(height / 5f);
+        float next = 5f - (height % 5f);
+        resultBoard.SetScore((int)height, rank, next);
     }
 }
