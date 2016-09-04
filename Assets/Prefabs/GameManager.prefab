@@ -61,3 +61,5 @@ MonoBehaviour:
   - {fileID: 1000014167161788, guid: ed2cb70373dde4f238f4223fb0f49077, type: 2}
   background: {fileID: 0}
   nextZombieImage: {fileID: 0}
+  nextZombieImage2: {fileID: 0}
+  SubCamera: {fileID: 0}
