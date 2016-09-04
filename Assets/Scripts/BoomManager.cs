@@ -29,7 +29,7 @@ public class BoomManager : MonoBehaviour
         }
     }
 
-    private void StartBoom()
+    public void StartBoom()
     {
         ListSize = gamemanager.ReturnListSize(); //要素数を保存
         StartCoroutine("DelayMethod");
