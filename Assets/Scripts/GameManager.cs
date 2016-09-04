@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
         //obj.GetComponent<GetTopPosition>().enabled = false;
     }
 
-    private GameObject GetHighestObject()
+    public GameObject GetHighestObject()
     {
         GameObject highest = null;
         foreach (var obj in blList)
@@ -272,6 +272,13 @@ public class GameManager : MonoBehaviour
         GameObject obj = blList[blList.Count - 1];//Listの最後尾の要素を渡す
         blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
         return obj;
+    }
+
+    public Transform GetMiddleList()
+    {
+        GameObject obj = blList[(int)(blList.Count/2)];//Listの中間の要素を渡す
+        Debug.Log("MiddleOriginalPosi"+obj.transform.position.y);
+        return obj.transform;//中間要素の位置情報渡す
     }
 
     private void CheckFlick()
