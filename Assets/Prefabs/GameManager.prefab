@@ -58,6 +58,6 @@ MonoBehaviour:
   - {fileID: 1000012420096726, guid: 81210bd5edbe04a80b0c3d3311e17f5e, type: 2}
   - {fileID: 1000011092532388, guid: 6925d320a143c42f68c2cb54987d7d96, type: 2}
   - {fileID: 1000013466265008, guid: fa4b9ba3da5664fc9a0da16810264752, type: 2}
+  - {fileID: 1000014167161788, guid: ed2cb70373dde4f238f4223fb0f49077, type: 2}
   background: {fileID: 0}
   nextZombieImage: {fileID: 0}
-  rotateSlider: {fileID: 0}
