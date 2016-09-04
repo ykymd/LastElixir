@@ -14,7 +14,7 @@ public class TrackingCamera : MonoBehaviour
             var pos = Vector3.zero;
             pos.z = -10f;
             this.transform.position = pos;
-            background.transform.position = Vector3.zero;
+            //background.transform.position = Vector3.zero;
             return;
         }
 
