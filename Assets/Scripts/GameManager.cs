@@ -26,6 +26,13 @@ public class GameManager : MonoBehaviour
     private Vector3 startTouchPos = Vector3.zero;
     private Vector3 endTouchPos = Vector3.zero;
 
+    // ゾンビを積んだ回数
+    private int piledZombies = 0;
+    // 次のイベント発生タイミング
+    private int nextEventTime = -1;
+    private int eventcount = 0;
+    private int eventType = 0;
+
     void Start()
     {
         blocks = new GameObject("Blocks");
@@ -33,6 +40,10 @@ public class GameManager : MonoBehaviour
         nextZombie = GenerateZombieList();
         nextZombieNum = nextZombie[0];
         nextZombie.RemoveAt(0);
+        piledZombies = 0;
+        nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
+        eventcount = 0;
+        eventType = 0;
     }
 
     private List<int> GenerateZombieList()
@@ -121,6 +132,16 @@ public class GameManager : MonoBehaviour
             nextZombie.RemoveAt(0);
             if (nextZombie.Count() <= 0)
                 nextZombie = GenerateZombieList();
+
+            // イベント発生の確認
+            piledZombies++;
+            if (piledZombies == nextEventTime)
+            {
+                Debug.Log("EVENT!!");
+                eventcount++;
+                eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
+                nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
+            }
         }
     }
 
