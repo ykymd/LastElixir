@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     private Background background = null;
     [SerializeField]
     private Image nextZombieImage = null;
-    [SerializeField]
-    private Slider rotateSlider = null;
 
     public static List<GameObject> blList = new List<GameObject>();
     //落ちたブロックの参照保存先
@@ -48,15 +46,16 @@ public class GameManager : MonoBehaviour
             nextZombieImage.gameObject.SetActive(true);
             nextZombieImage.sprite = block[nextZombie].GetComponent<SpriteRenderer>().sprite;
         }
+    }
 
-        // 回転角を更新
-        if (rotateSlider != null)
-        {
-            var angle = rotateSlider.value * 360f;
-            //var imageAngle = nextZombieImage.transform.rotation;
-            //imageAngle.z = angle;
-            nextZombieImage.transform.Rotate(0, 0, angle);
-        }
+    public void RotateRight()
+    {
+        nextZombieImage.transform.Rotate(0, 0, -90f);
+    }
+
+    public void RotateLeft()
+    {
+        nextZombieImage.transform.Rotate(0, 0, 90f);
     }
 
     private void MoveBlock()
@@ -93,6 +92,7 @@ public class GameManager : MonoBehaviour
         var obj = Utility.Instantiate(blocks, block[nextZombie]);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
+        obj.transform.rotation = nextZombieImage.transform.rotation;
         obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
         foreach (var collider in obj.GetComponents<BoxCollider2D>())
         {
