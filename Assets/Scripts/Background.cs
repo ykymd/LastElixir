@@ -40,6 +40,7 @@ public class Background : MonoBehaviour
 
         //Debug.Log(offset);
 
+        /*
         // マテリアルにオフセットを設定する
         GetComponent<Renderer>().sharedMaterial.SetTextureOffset ("_MainTex", offset);
 
@@ -47,5 +48,6 @@ public class Background : MonoBehaviour
         beforeOffset = offset;
 
         this.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y, this.transform.position.z) ;
+    */
     }
 }
