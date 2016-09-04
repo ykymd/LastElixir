@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private List<int> nextZombie;
     private int nextZombieNum = -1;
 
+    // Flick
+    private Vector3 startTouchPos = Vector3.zero;
+    private Vector3 endTouchPos = Vector3.zero;
 
     void Start()
     {
@@ -57,13 +60,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
-	void Update()
-	{
-		UpdateNextZombieImage();
+    // Update is called once per frame
+    void Update()
+    {
+        //CheckFlick();
+        UpdateNextZombieImage();
 
-		MoveBlock();
-	}
+        MoveBlock();
+    }
 
     private void MoveBlock()
     {
@@ -104,23 +108,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	public void GenerateZombie()
-	{
-		Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-		var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
-		obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
-		obj.transform.position = position;
-		obj.transform.rotation = nextZombieImage.transform.rotation;
-		obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
-		foreach (var collider in obj.GetComponents<BoxCollider2D>())
-		{
-			collider.enabled = false;
-		}
-		movingBlock = obj;
-		zombieMoving = true;
+    public void GenerateZombie()
+    {
+        Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
+        var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
+        obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
+        obj.transform.position = position;
+        obj.transform.rotation = nextZombieImage.transform.rotation;
+        obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
+        foreach (var collider in obj.GetComponents<BoxCollider2D>())
+        {
+            collider.enabled = false;
+        }
+        movingBlock = obj;
+        zombieMoving = true;
  
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
-	}
+    }
 
     void GetTop()
     {
@@ -130,18 +134,48 @@ public class GameManager : MonoBehaviour
         Debug.Log(position.y);
     }
 
+    public GameObject GetLastList()//Listの最後尾の要素を渡す
+    {
+        GameObject obj = blList[blList.Count - 1];
+        return obj;
+    }
 
-	public GameObject GetLastList()//Listの最後尾の要素を渡す
-	{
-		GameObject obj = blList[blList.Count - 1];
-		return obj;
-	}
+    public GameObject GetAndRemoveList()
+    {
+        GameObject obj = blList[blList.Count - 1];//Listの最後尾の要素を渡す
+        blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
+        return obj;
+    }
 
-	public GameObject GetAndRemoveList()
-	{
-		GameObject obj = blList[blList.Count - 1];//Listの最後尾の要素を渡す
-		blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
-		return obj;
-	}
-		
+    private void CheckFlick()
+    {
+        if (MultiTouch.GetTouch() == TouchInfo.Began)
+        {
+            startTouchPos = MultiTouch.GetTouchPosition();
+        }
+        else if (MultiTouch.GetTouch() == TouchInfo.Ended)
+        {
+            endTouchPos = MultiTouch.GetTouchPosition();
+            var direction = endTouchPos - startTouchPos;
+
+            var aTapPoint = Camera.main.ScreenToWorldPoint(startTouchPos);
+            var aCollider2d = Physics2D.OverlapPoint(aTapPoint);
+
+            if (aCollider2d) {
+                GameObject obj = aCollider2d.transform.gameObject;
+                Debug.Log(obj.name);
+            }
+
+            if (direction.x < 0)
+            {
+                Debug.Log("LEFT");
+                nextZombieImage.transform.Rotate(new Vector3(0, 0, 90f));
+            }
+            else if (direction.x > 0)
+            {
+                Debug.Log("RIGHT");
+                nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
+            }
+        }
+    }
 }
