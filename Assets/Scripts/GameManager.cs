@@ -102,6 +102,13 @@ public class GameManager : MonoBehaviour
         zombieMoving = true;
     }
 
+    public void Freeze()
+    {
+        foreach (var block in blList)
+        {
+            block.GetComponent<Rigidbody2D>().Pause(block.gameObject);
+        }
+    }
 
     public GameObject GetList()
     {
