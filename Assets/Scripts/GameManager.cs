@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
     }
 
-    void GetTop()
+    void GetTop()//Actionでひも付けて呼び出されている
     {
         Debug.Log("Cpllision");
         GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
@@ -177,5 +177,10 @@ public class GameManager : MonoBehaviour
                 nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
             }
         }
+    }
+
+    public int ReturnListSize()//Listの要素数を返す
+    {
+        return blList.Count;
     }
 }
