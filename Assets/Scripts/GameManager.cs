@@ -69,6 +69,21 @@ public class GameManager : MonoBehaviour
         MoveBlock();
     }
 
+    private bool CheckTapMoon()
+    {
+        var position = MultiTouch.GetTouchPosition();
+        var aTapPoint = Camera.main.ScreenToWorldPoint(position);
+        var aCollider2d = Physics2D.OverlapPoint(aTapPoint);
+
+        if (aCollider2d)
+        {
+            GameObject obj = aCollider2d.transform.gameObject;
+            return obj.name == "Moon";
+        }
+
+        return false;
+    }
+
     private void MoveBlock()
     {
         if (!zombieMoving)
@@ -83,6 +98,14 @@ public class GameManager : MonoBehaviour
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
             //Time.timeScale = 1.0F;
+            if (CheckTapMoon())
+            {
+                nextZombieImage.transform.rotation = movingBlock.transform.rotation;
+                Destroy(movingBlock);
+                movingBlock = null;
+                zombieMoving = false;
+                return;
+            }
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
             movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
             foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
@@ -93,6 +116,7 @@ public class GameManager : MonoBehaviour
             background.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
+            nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
             nextZombieNum = nextZombie[0];
             nextZombie.RemoveAt(0);
             if (nextZombie.Count() <= 0)
@@ -171,24 +195,6 @@ public class GameManager : MonoBehaviour
                 Debug.Log("RIGHT");
                 nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
             }
-
-            /*
-            if (aCollider2d) {
-                GameObject obj = aCollider2d.transform.gameObject;
-                Debug.Log(obj.name);
-
-                if (direction.x < 0)
-                {
-                    Debug.Log("LEFT");
-                    nextZombieImage.transform.Rotate(new Vector3(0, 0, 90f));
-                }
-                else if (direction.x > 0)
-                {
-                    Debug.Log("RIGHT");
-                    nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
-                }
-            }
-            */
         }
     }
 
