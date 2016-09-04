@@ -1044,6 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bomPre: {fileID: 1000013411567026, guid: 1b52591cadac745e2aebcb95ad1243f9, type: 2}
   flag: 0
+  boomManager: {fileID: 81814882}
 --- !u!114 &1165191613
 MonoBehaviour:
   m_ObjectHideFlags: 0
