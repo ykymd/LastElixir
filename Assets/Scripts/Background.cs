@@ -38,7 +38,7 @@ public class Background : MonoBehaviour
         var pos2 = new Vector2(pos.x, pos.y);
         Vector2 offset = beforeOffset + pos2 * speed;
 
-        Debug.Log(offset);
+        //Debug.Log(offset);
 
         // マテリアルにオフセットを設定する
         GetComponent<Renderer>().sharedMaterial.SetTextureOffset ("_MainTex", offset);

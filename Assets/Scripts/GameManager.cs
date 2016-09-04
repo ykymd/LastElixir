@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
 	}
 
-    void GetTop()
+    void GetTop()//Actionでひも付けて呼び出されている
     {
         Debug.Log("Cpllision");
         GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
@@ -143,5 +143,10 @@ public class GameManager : MonoBehaviour
 		blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
 		return obj;
 	}
+
+    public int ReturnListSize()//Listの要素数を返す
+    {
+        return blList.Count;
+    }
 		
 }
