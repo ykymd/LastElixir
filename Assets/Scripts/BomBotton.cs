@@ -54,6 +54,7 @@ public class BomBotton : MonoBehaviour
             if (collition2d)
             {//ここで爆破判定
                 boomManager.StartBoom();
+                Destroy(BomObj);
             }
             else
             {
