@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         var resultBoard = Utility.InstantiateGetComponent<ResultBoard>(null, ResultBoard);
         var height = maxHeight / 1.25f;
-        int rank = (int)(height / 5f);
+        int rank = (IsGameOver) ? -1 : (int)(height / 5f);
         float next = 5f - (height % 5f);
         resultBoard.SetScore((int)height, rank, next);
     }
