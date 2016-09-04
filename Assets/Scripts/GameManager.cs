@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     [SerializeField]
     private GameObject[] block;
     [SerializeField]
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     private Slider rotateSlider = null;
 
     public static List<GameObject> blList = new List<GameObject>();
-//落ちたブロックの参照保存先
+    //落ちたブロックの参照保存先
     private GameObject blocks;
     private GameObject movingBlock;
     private bool zombieMoving = false;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
+            //Time.timeScale = 1.0F;
             movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
             movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
             foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
         movingBlock = obj;
         zombieMoving = true;
     }
+
 
     public GameObject GetList()
     {
