@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,13 +20,17 @@ public class GameManager : MonoBehaviour
     private GameObject blocks;
     private GameObject movingBlock;
     private bool zombieMoving = false;
-    private int nextZombie = -1;
+    private List<int> nextZombie;
+    private int nextZombieNum = -1;
 
 
     void Start()
     {
         blocks = new GameObject("Blocks");
-        nextZombie = Random.Range(0, block.Length);
+
+        nextZombie = GenerateZombieList();
+        nextZombieNum = nextZombie[0];
+        nextZombie.RemoveAt(0);
     }
 
     // Update is called once per frame
@@ -35,16 +41,28 @@ public class GameManager : MonoBehaviour
         MoveBlock();
     }
 
+    private List<int> GenerateZombieList()
+    {
+        var nextZombieList = new List<int>();
+        for (int i = 0; i < block.Length; i++)
+        {
+            nextZombieList.Add(i);
+        }
+
+        //シャッフルする
+        return nextZombieList.OrderBy(i => Guid.NewGuid()).ToList();
+    }
+
     private void UpdateNextZombieImage()
     {
-        if (nextZombie == -1 || zombieMoving)
+        if (nextZombieNum == -1 || zombieMoving)
         {
             nextZombieImage.gameObject.SetActive(false);
         }
         else
         {
             nextZombieImage.gameObject.SetActive(true);
-            nextZombieImage.sprite = block[nextZombie].GetComponent<SpriteRenderer>().sprite;
+            nextZombieImage.sprite = block[nextZombieNum].GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -82,14 +100,17 @@ public class GameManager : MonoBehaviour
             background.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
-            nextZombie = Random.Range(0, block.Length);
+            nextZombieNum = nextZombie[0];
+            nextZombie.RemoveAt(0);
+            if (nextZombie.Count() <= 0)
+                nextZombie = GenerateZombieList();
         }
     }
 
     public void GenerateZombie()
     {
         Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-        var obj = Utility.Instantiate(blocks, block[nextZombie]);
+        var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
         obj.transform.rotation = nextZombieImage.transform.rotation;
