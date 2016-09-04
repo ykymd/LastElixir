@@ -26,7 +26,7 @@ GameObject:
   - 114: {fileID: 114000010986688646}
   m_Layer: 0
   m_Name: zombie3
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43576324951d24037996284b6d703d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refObj: {fileID: 0}
 --- !u!114 &114000012382063476
 MonoBehaviour:
   m_ObjectHideFlags: 1

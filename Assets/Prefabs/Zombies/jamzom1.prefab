@@ -24,9 +24,10 @@ GameObject:
   - 61: {fileID: 61000013878946908}
   - 61: {fileID: 61000010671714690}
   - 61: {fileID: 61000013809703822}
+  - 114: {fileID: 114000011292519166}
   m_Layer: 0
   m_Name: jamzom1
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +104,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1.9614329}
   serializedVersion: 2
   m_Size: {x: 9, y: 2.9283767}
+--- !u!114 &114000011292519166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014167161788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43576324951d24037996284b6d703d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000013071298546
 SpriteRenderer:
   m_ObjectHideFlags: 1

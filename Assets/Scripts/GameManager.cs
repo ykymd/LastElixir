@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     private int eventcount = 0;
     private int eventType = 0;
 
+    // ゲームオーバー判定
+    private Rect judgeArea = new Rect(0,0,0,0);
+    private GameObject judgeTarget = null;
+
     void Start()
     {
         blocks = new GameObject("Blocks");
@@ -84,6 +88,18 @@ public class GameManager : MonoBehaviour
         MoveBlock();
 
         if(Input.GetKeyDown(KeyCode.C)) Gameover();//C押されたらカメラチェンジ
+        CheckGameOver();
+    }
+
+    private void CheckGameOver()
+    {
+        if (judgeArea.width == 0)
+            return;
+
+        if (!judgeArea.Contains(judgeTarget.transform.position))
+        {
+            Debug.Log("GameOver");
+        }
     }
 
     private bool CheckTapMoon()
@@ -130,7 +146,6 @@ public class GameManager : MonoBehaviour
                 collider.enabled = true;
             }
             blList.Add(movingBlock);//落ちたブロックを順々に保存
-            background.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
             nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
@@ -177,12 +192,41 @@ public class GameManager : MonoBehaviour
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
     }
 
-    void GetTop()//Actionでひも付けて呼び出されている
+    void GetTop(GameObject obj)//Actionでひも付けて呼び出されている
     {
         Debug.Log("Cpllision");
         GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
-        Vector2 position = block.transform.position;//そのブロックの座標を取ってくる
+        Vector3 position = block.transform.position;//そのブロックの座標を取ってくる
         Debug.Log(position.y);
+        //var obj = GetHighestObject();
+        //Debug.Log("HIGH:" + obj.transform.position);
+
+        float range = 1f;
+        judgeArea = new Rect(position.x - range / 2, position.y - range / 2, range, range);
+        Debug.Log(judgeArea);
+        judgeTarget = obj;
+        //obj.GetComponent<GetTopPosition>().enabled = false;
+    }
+
+    private GameObject GetHighestObject()
+    {
+        GameObject highest = null;
+        foreach (var obj in blList)
+        {
+            if (highest == null)
+            {
+                highest = obj;
+            }
+            else
+            {
+                if (obj.transform.position.y > highest.transform.position.y)
+                {
+                    highest = obj;
+                }
+            }
+        }
+
+        return highest;
     }
 
     public GameObject GetLastList()//Listの最後尾の要素を渡す
