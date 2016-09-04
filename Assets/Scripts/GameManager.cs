@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] block;
     [SerializeField]
+    private GameObject jamBlock;
+    [SerializeField]
     private Background background = null;
     [SerializeField]
     private Image nextZombieImage = null;
@@ -68,7 +70,6 @@ public class GameManager : MonoBehaviour
         eventcount = 0;
         eventType = 0;
         IsGameOver = false;
-        StartCoroutine(FeverTime());
     }
 
     private List<int> GenerateZombieList()
@@ -93,7 +94,14 @@ public class GameManager : MonoBehaviour
         else
         {
             nextZombieImage.gameObject.SetActive(true);
-            nextZombieImage.sprite = block[nextZombieNum].GetComponent<SpriteRenderer>().sprite;
+            if (nextZombieNum != -2)
+            {
+                nextZombieImage.sprite = block[nextZombieNum].GetComponent<SpriteRenderer>().sprite;
+            }
+            else
+            {
+                nextZombieImage.sprite = jamBlock.GetComponent<SpriteRenderer>().sprite;
+            }
             nextZombieImage2.gameObject.SetActive(true);
             var num = nextZombie[0];
             nextZombieImage2.sprite = block[num].GetComponent<SpriteRenderer>().sprite;
@@ -193,7 +201,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("EVENT!!");
                 eventcount++;
-                eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
+                //eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
+                eventType = (eventType % 3 == 2) ? 0 : 1;
                 nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
 
                 switch (eventType)
@@ -201,6 +210,10 @@ public class GameManager : MonoBehaviour
                     case 0:
                         // フィーバータイム
                         StartCoroutine(FeverTime());
+                        break;
+                    case 1:
+                        // お邪魔ゾンビ出現
+                        StartCoroutine(AppearJamZombie());
                         break;
                 }
             }
@@ -219,6 +232,16 @@ public class GameManager : MonoBehaviour
         IsFeverTime = false;
     }
 
+    IEnumerator AppearJamZombie()
+    {
+        var alert = Utility.InstantiateGetComponent<EventAlert>(Camera.main.gameObject, eventAlerts[1]);
+        nextZombie.Insert(0, -2);
+
+        yield return new WaitForSeconds(2f);
+
+        alert.Ended();
+    }
+
     public void Freeze()
     {
         foreach (var block in blList)
@@ -233,7 +256,12 @@ public class GameManager : MonoBehaviour
             return;
 
         Vector3 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-        var obj = Utility.Instantiate(blocks, block[nextZombieNum]);
+        GameObject prefab;
+        if (nextZombieNum == -2)
+            prefab = jamBlock;
+        else
+            prefab = block[nextZombieNum];
+        var obj = Utility.Instantiate(blocks, prefab);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
         Debug.Log("ZombiePosition" + obj.transform.position);

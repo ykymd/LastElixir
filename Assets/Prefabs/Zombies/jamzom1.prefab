@@ -25,6 +25,7 @@ GameObject:
   - 61: {fileID: 61000010671714690}
   - 61: {fileID: 61000013809703822}
   - 114: {fileID: 114000011292519166}
+  - 114: {fileID: 114000011323153298}
   m_Layer: 0
   m_Name: jamzom1
   m_TagString: Zombie
@@ -113,6 +114,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43576324951d24037996284b6d703d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011323153298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014167161788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0f4e6fcd9114291b9b2db5071e3d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212000013071298546
