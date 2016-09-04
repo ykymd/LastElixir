@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Image nextZombieImage = null;
 
+    [SerializeField]
+    private GameObject SubCamera;//サブカメラ
+    private CameraManager cameMane;//カメラチェンジ用のスクリプト
+
     public static List<GameObject> blList = new List<GameObject>();
     //落ちたブロックの参照保存先
     private GameObject blocks;
@@ -78,6 +82,8 @@ public class GameManager : MonoBehaviour
         UpdateNextZombieImage();
 
         MoveBlock();
+
+        if(Input.GetKeyDown(KeyCode.C)) Gameover();//C押されたらカメラチェンジ
     }
 
     private bool CheckTapMoon()
@@ -222,5 +228,11 @@ public class GameManager : MonoBehaviour
     public int ReturnListSize()//Listの要素数を返す
     {
         return blList.Count;
+    }
+
+    public void Gameover(){//カメラのチェンジ
+        SubCamera.SetActiveRecursively(true);
+        cameMane = SubCamera.GetComponent<CameraManager>();
+        cameMane.CameraZoomOut();
     }
 }
