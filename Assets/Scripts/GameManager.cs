@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     // Flick
     private Vector3 startTouchPos = Vector3.zero;
     private Vector3 endTouchPos = Vector3.zero;
+    public bool BomFlag = false;
 
     // ゾンビを積んだ回数
     private int piledZombies = 0;
@@ -130,7 +131,10 @@ public class GameManager : MonoBehaviour
         if (IsGameOver)
             return;
 
-        CheckFlick();
+        if (BomFlag == false)
+        {
+            CheckFlick();
+        }
         UpdateNextZombieImage();
         MoveBlock();
 
@@ -145,13 +149,14 @@ public class GameManager : MonoBehaviour
     {        
         if (judgeArea.width == 0)
             return;
-
+        if(judgeTarget != null){
         if (!judgeArea.Contains(judgeTarget.transform.position))
         {
             var obj = GetHighestObject();
             maxHeight = obj.transform.position.y;
             FailureAction();
             StartCoroutine(ShowResult());
+        }
         }
     }
 
@@ -309,6 +314,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Cpllision");
         GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
+
+        if(block!=null){
         Vector3 position = block.transform.position;//そのブロックの座標を取ってくる
         Debug.Log(position.y);
         //var obj = GetHighestObject();
@@ -321,6 +328,7 @@ public class GameManager : MonoBehaviour
         if (IsFeverTime)
             obj.GetComponent<Rigidbody2D>().Pause(block.gameObject);
         //obj.GetComponent<GetTopPosition>().enabled = false;
+        }
     }
 
     public GameObject GetHighestObject()
