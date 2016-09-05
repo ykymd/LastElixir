@@ -1351,7 +1351,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1206984271}
   - 212: {fileID: 1206984270}
-  - 114: {fileID: 1206984272}
   m_Layer: 0
   m_Name: background_01
   m_TagString: Untagged
@@ -1405,19 +1404,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!114 &1206984272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1206984269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a952b3d984ec84e39b113a5a85632924, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  TrackObject: {fileID: 0}
 --- !u!1 &1253230834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,8 +1619,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refObj: {fileID: 1563518321}
-  background: {fileID: 1206984272}
+  trackingcamera: {fileID: 1563518327}
   gamemanager: {fileID: 2126663739}
+  middleYposi: {x: 0, y: 0, z: 0}
 --- !u!1 &1390447025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,7 +1953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd6f0936f47e4b4bb5bcd3b611e56f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 1206984272}
+  TrackObject: {fileID: 0}
 --- !u!1 &1576101224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,7 +2095,7 @@ Prefab:
         type: 2}
       propertyPath: background
       value: 
-      objectReference: {fileID: 1206984272}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
         type: 2}
       propertyPath: nextZombieImage
@@ -2134,6 +2121,11 @@ Prefab:
       propertyPath: soundeffect
       value: 
       objectReference: {fileID: 1625908170}
+    - target: {fileID: 114000010598989980, guid: 9e4acefcd2258483cb7ad046c494abef,
+        type: 2}
+      propertyPath: trackingcamera
+      value: 
+      objectReference: {fileID: 1563518327}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e4acefcd2258483cb7ad046c494abef, type: 2}
   m_IsPrefabParent: 0
