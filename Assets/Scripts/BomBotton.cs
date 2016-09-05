@@ -36,6 +36,7 @@ public class BomBotton : MonoBehaviour
         Quaternion q = new Quaternion();
         q = Quaternion.identity;
         BomObj = (GameObject)Instantiate(bomPre, position, q);
+        //BomObj.transform.position = BomObj.transform.position + new Vector3(3.0F, 0, 0);
     }
 
     private void MoveBom()
@@ -49,7 +50,7 @@ public class BomBotton : MonoBehaviour
         {
             Debug.Log("PutBom");
             Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-            Collider2D collition2d = Physics2D.OverlapPoint(position); 
+            Collider2D collition2d = Physics2D.OverlapPoint(position + new Vector2(-1.0F, 0)); 
 
             if (collition2d)
             {//ここで爆破判定
@@ -58,6 +59,7 @@ public class BomBotton : MonoBehaviour
             }
             else
             {
+                Destroy(BomObj);
                 Debug.Log("BomFaled");
             }
 
