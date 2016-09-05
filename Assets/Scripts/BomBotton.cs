@@ -12,6 +12,8 @@ public class BomBotton : MonoBehaviour
 
     [SerializeField]
     BoomManager boomManager;
+    [SerializeField]
+    GameManager gameManager;
 
     void Update()
     {
@@ -24,8 +26,9 @@ public class BomBotton : MonoBehaviour
     public void ButtonPush()
     {
         Debug.Log("PutBomPush");
+        gameManager.BomFlag = true;
         MakeBom();
-        flag = true;
+        flag = true;//ボムが動いている間のフラグ
 
     }
 
@@ -48,6 +51,7 @@ public class BomBotton : MonoBehaviour
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
+            flag = false;
             Debug.Log("PutBom");
             Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
             Collider2D collition2d = Physics2D.OverlapPoint(position + new Vector2(-1.0F, 0)); 
@@ -61,6 +65,7 @@ public class BomBotton : MonoBehaviour
             {
                 Destroy(BomObj);
                 Debug.Log("BomFaled");
+                gameManager.BomFlag = false;
             }
 
         }
