@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
     private int GenerateNextEventTime(int piledZombie)
     {
         // 10 16
-        return piledZombie + UnityEngine.Random.Range(2, 4);
+        return piledZombie + UnityEngine.Random.Range(10, 16);
     }
 
     public void Freeze()
