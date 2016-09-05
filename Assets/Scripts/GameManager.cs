@@ -322,7 +322,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("HIGH:" + obj.transform.position);
 
         float range = 1f;
-        judgeArea = new Rect(position.x - range / 2, position.y - range / 2, range, range);
+        judgeArea = new Rect(position.x - range, position.y - range / 2, range*2, range);
         Debug.Log(judgeArea);
         judgeTarget = obj;
         if (IsFeverTime)
