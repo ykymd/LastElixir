@@ -53,7 +53,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010061109034}
   m_UseAutoMass: 1
-  m_Mass: 1.7357345
+  m_Mass: 1.4399999
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -73,9 +73,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -1.862474, y: -0.08206963}
+  m_Offset: {x: -2, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2.2750463, y: 4.0942674}
+  m_Size: {x: 3, y: 3}
 --- !u!61 &61000014041156984
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -87,9 +87,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 1.16488, y: -0.041034617}
+  m_Offset: {x: 1, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.7523062, y: 9.08207}
+  m_Size: {x: 3, y: 9}
 --- !u!114 &114000014230736208
 MonoBehaviour:
   m_ObjectHideFlags: 1

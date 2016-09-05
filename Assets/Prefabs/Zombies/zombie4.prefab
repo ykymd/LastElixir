@@ -24,7 +24,6 @@ GameObject:
   - 61: {fileID: 61000013398722866}
   - 61: {fileID: 61000013658706988}
   - 114: {fileID: 114000013138708420}
-  - 61: {fileID: 61000010978695990}
   - 114: {fileID: 114000011547404654}
   m_Layer: 0
   m_Name: zombie4
@@ -63,20 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61000010978695990
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012420096726}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3613a8630041a45578f8802259cf8e2d, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: -1.0896844, y: 3}
-  serializedVersion: 2
-  m_Size: {x: 3.820632, y: 3}
 --- !u!61 &61000013398722866
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -88,9 +73,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 3613a8630041a45578f8802259cf8e2d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 1.1648798, y: -1.5230038}
+  m_Offset: {x: 1.5, y: -1.5}
   serializedVersion: 2
-  m_Size: {x: 3.7523067, y: 6.1181326}
+  m_Size: {x: 3, y: 6}
 --- !u!61 &61000013658706988
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -102,9 +87,9 @@ BoxCollider2D:
   m_Material: {fileID: 6200000, guid: 3613a8630041a45578f8802259cf8e2d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -1.8624741, y: -0.03848195}
+  m_Offset: {x: -1.5, y: 1.5}
   serializedVersion: 2
-  m_Size: {x: 2.2750463, y: 3.1353486}
+  m_Size: {x: 3, y: 6}
 --- !u!114 &114000011547404654
 MonoBehaviour:
   m_ObjectHideFlags: 1
