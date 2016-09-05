@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
                 collider.enabled = true;
             }
             blList.Add(movingBlock);//落ちたブロックを順々に保存
-            trackingcamera.TrackObject = movingBlock;
+            if (trackingcamera != null) trackingcamera.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
             nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
