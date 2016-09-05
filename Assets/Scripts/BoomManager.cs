@@ -42,6 +42,8 @@ public class BoomManager : MonoBehaviour
 
     public void StartBoom()
     {
+        Debug.Log("Gamemanagerから読んだMiddleYPosi"+gamemanager.GetMiddleList().position.y);
+        cameraManager.middleYposi = new Vector3(0, gamemanager.GetMiddleList().position.y, 0);//中間要素のy座標をCameraManagerに渡しておく。先にしておかないと爆破destroyでそのゾンビ消えちゃうから
         height = gamemanager.GetHighestObject().transform.position.y / 1.25f;
         ListSize = gamemanager.ReturnListSize(); //要素数を保存
         //middlePosition = gamemanager.GetMiddleList();//中間要素の位置情報

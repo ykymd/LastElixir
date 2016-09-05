@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     private GameObject[] block;
     [SerializeField]
     private GameObject jamBlock;
+    /*[SerializeField]
+    private Background background = null;*/
     [SerializeField]
-    private Background background = null;
+    private TrackingCamera trackingcamera = null;//BackGroundの代わりにTrackingCameraにmovingBlock代入
     [SerializeField]
     private Image nextZombieImage = null;
     [SerializeField]
@@ -194,7 +196,7 @@ public class GameManager : MonoBehaviour
                 collider.enabled = true;
             }
             blList.Add(movingBlock);//落ちたブロックを順々に保存
-            background.TrackObject = movingBlock;
+            trackingcamera.TrackObject = movingBlock;
             movingBlock = null;
             zombieMoving = false;
             nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
