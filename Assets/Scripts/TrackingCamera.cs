@@ -3,23 +3,22 @@ using System.Collections;
 
 public class TrackingCamera : MonoBehaviour
 {
-    [SerializeField]
-    private Background background = null;
+    public GameObject TrackObject;
+    //追うターゲットゾンビ、GameManagerで代入される
 
     // Update is called once per frame
     void Update()
     {
-        if (background == null || background.TrackObject == null)
-        {
-            var pos = Vector3.zero;
-            pos.z = -10f;
-            this.transform.position = pos;
-            //background.transform.position = Vector3.zero;
+        if (TrackObject == null)
+        {//いなかったら何もしない
             return;
         }
+        else
+        {
+            var position = TrackObject.transform.position;//GameManagerからTrackObject代入されてればその位置とる
+            position.z = this.transform.position.z;//このカメラの深度（z軸値）代入
+            this.transform.position = position;//このカメラの位置をゾンビのところに移動
+        }
 
-        var position = background.TrackObject.transform.position;
-        position.z = this.transform.position.z;
-        this.transform.position = position;
     }
 }
