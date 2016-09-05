@@ -9,12 +9,14 @@ public class EventAlert : MonoBehaviour
     {
         transform.position = transform.position - Vector3.up * 7f;
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMoveY(-3.6f + Camera.main.transform.position.y, 1f).SetEase(Ease.InOutBack));
+        var move = new Vector3(0f, -2f, 1f);
+        seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack));
     }
 
     public void Ended()
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOMoveY(-7f + Camera.main.transform.position.y, 1f).SetEase(Ease.InOutBack).OnComplete(() => Destroy(this.gameObject)));
+        var move = new Vector3(0f, -7f, 1f);
+        seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack).OnComplete(() => Destroy(this.gameObject)));
     }
 }

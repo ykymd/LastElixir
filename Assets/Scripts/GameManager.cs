@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         nextZombieNum = nextZombie[0];
         nextZombie.RemoveAt(0);
         piledZombies = 0;
-        nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
+        nextEventTime = GenerateNextEventTime(piledZombies);
         eventcount = 0;
         eventType = 0;
         IsGameOver = false;
@@ -104,7 +104,14 @@ public class GameManager : MonoBehaviour
             }
             nextZombieImage2.gameObject.SetActive(true);
             var num = nextZombie[0];
-            nextZombieImage2.sprite = block[num].GetComponent<SpriteRenderer>().sprite;
+            if (num != -2)
+            {
+                nextZombieImage2.sprite = block[num].GetComponent<SpriteRenderer>().sprite;
+            }
+            else
+            {
+                nextZombieImage2.sprite = jamBlock.GetComponent<SpriteRenderer>().sprite;
+            }
         }
     }
 
@@ -196,14 +203,14 @@ public class GameManager : MonoBehaviour
             }
 
             // イベント発生の確認
-            piledZombies++;
+            if (!IsFeverTime) piledZombies++;
             if (piledZombies == nextEventTime)
             {
                 Debug.Log("EVENT!!");
-                eventcount++;
                 //eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
-                eventType = (eventType % 3 == 2) ? 0 : 1;
-                nextEventTime = piledZombies + UnityEngine.Random.Range(10, 16);
+                eventType = (eventcount % 3 == 2) ? 0 : 1;
+                eventcount++;
+                nextEventTime = GenerateNextEventTime(piledZombies);
 
                 switch (eventType)
                 {
@@ -240,6 +247,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         alert.Ended();
+    }
+
+    private int GenerateNextEventTime(int piledZombie)
+    {
+        // 10 16
+        return piledZombie + UnityEngine.Random.Range(2, 4);
     }
 
     public void Freeze()
@@ -290,7 +303,8 @@ public class GameManager : MonoBehaviour
         judgeArea = new Rect(position.x - range / 2, position.y - range / 2, range, range);
         Debug.Log(judgeArea);
         judgeTarget = obj;
-        if (IsFeverTime) obj.GetComponent<Rigidbody2D>().Pause(block.gameObject);
+        if (IsFeverTime)
+            obj.GetComponent<Rigidbody2D>().Pause(block.gameObject);
         //obj.GetComponent<GetTopPosition>().enabled = false;
     }
 
@@ -330,8 +344,8 @@ public class GameManager : MonoBehaviour
 
     public Transform GetMiddleList()
     {
-        GameObject obj = blList[(int)(blList.Count/2)];//Listの中間の要素を渡す
-        Debug.Log("MiddleOriginalPosi"+obj.transform.position.y);
+        GameObject obj = blList[(int)(blList.Count / 2)];//Listの中間の要素を渡す
+        Debug.Log("MiddleOriginalPosi" + obj.transform.position.y);
         return obj.transform;//中間要素の位置情報渡す
     }
 
