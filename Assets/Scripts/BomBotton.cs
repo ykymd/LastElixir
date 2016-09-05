@@ -54,7 +54,7 @@ public class BomBotton : MonoBehaviour
             flag = false;
             Debug.Log("PutBom");
             Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-            Collider2D collition2d = Physics2D.OverlapPoint(position + new Vector2(-1.0F, 0)); 
+            Collider2D collition2d = Physics2D.OverlapPoint(position + new Vector2(-0.8F, 0)); 
 
             if (collition2d)
             {//ここで爆破判定
