@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: LastElixir
+  companyName: LastElixir
+  productName: "\u30BE\u30F3\u30D3\u30BF\u30EF\u30FC"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenStyle: 0
@@ -128,7 +128,7 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 0}
+  iPhoneSplashScreen: {fileID: 2800000, guid: 148577d00cdb14db188bbf560e6184ba, type: 3}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
   iPhone47inSplashScreen: {fileID: 2800000, guid: 148577d00cdb14db188bbf560e6184ba,
@@ -181,7 +181,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: 0adba1df0ee174a14833b72db7dcd066, type: 3}
       m_Width: 128
       m_Height: 128
   - m_BuildTarget: iPhone
@@ -382,6 +382,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
+    4: 
     7: 
   metroPackageName: LastElixir
   metroPackageVersion: 
