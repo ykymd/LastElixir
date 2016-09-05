@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] eventAlerts;
 
+    [SerializeField]
+    private SoundManager soundManager = null;
+
     private CameraManager cameMane;
     //カメラチェンジ用のスクリプト
 
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
         eventcount = 0;
         eventType = 0;
         IsGameOver = false;
+        //StartCoroutine(FeverTime());
     }
 
     private List<int> GenerateZombieList()
@@ -141,7 +145,7 @@ public class GameManager : MonoBehaviour
         {
             var obj = GetHighestObject();
             maxHeight = obj.transform.position.y;
-            FaiureAction();
+            FailureAction();
             StartCoroutine(ShowResult());
         }
     }
@@ -232,11 +236,13 @@ public class GameManager : MonoBehaviour
         var alert = Utility.InstantiateGetComponent<EventAlert>(Camera.main.gameObject, eventAlerts[0]);
         Freeze();
         IsFeverTime = true;
+        soundManager.StartFeverTime();
 
         yield return new WaitForSeconds(10f);
 
         alert.Ended();
         IsFeverTime = false;
+        soundManager.FinishFeverTime();
     }
 
     IEnumerator AppearJamZombie()
@@ -252,7 +258,7 @@ public class GameManager : MonoBehaviour
     private int GenerateNextEventTime(int piledZombie)
     {
         // 10 16
-        return piledZombie + UnityEngine.Random.Range(10, 16);
+        return piledZombie + UnityEngine.Random.Range(3, 6);
     }
 
     public void Freeze()
@@ -388,11 +394,12 @@ public class GameManager : MonoBehaviour
         cameMane.CameraZoomOut();
     }
 
-    private void FaiureAction()
+    private void FailureAction()
     {
         IsGameOver = true;
         int ListSize = ReturnListSize(); //要素数を保存
         GameObject block;
+        soundManager.currentBgm.Stop();
 
         for (int i = ListSize - 1; i >= 0; i--)
         {
@@ -405,6 +412,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowResult()
     {
         yield return new WaitForSeconds(3);
+        soundManager.StartResult();
         var resultBoard = Utility.InstantiateGetComponent<ResultBoard>(null, ResultBoard);
         var height = maxHeight / 1.25f;
         int rank = (IsGameOver) ? -1 : (int)(height / 5f);
