@@ -337,6 +337,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetLastList()//Listの最後尾の要素を渡す
     {
+        if (blList.Count == 0)
+        {
+            return null;
+        }
         GameObject obj = blList[blList.Count - 1];
         return obj;
     }
