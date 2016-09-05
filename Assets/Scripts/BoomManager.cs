@@ -14,6 +14,8 @@ public class BoomManager : MonoBehaviour
     private GameObject SubCamera;
     //サブカメラ
     public GameObject boomPrefab;
+    [SerializeField]
+    private AudioSource bombSE = null;
 
     int ListSize;
     GameObject block;
@@ -42,6 +44,7 @@ public class BoomManager : MonoBehaviour
 
     public void StartBoom()
     {
+        bombSE.Play();
         Debug.Log("Gamemanagerから読んだMiddleYPosi"+gamemanager.GetMiddleList().position.y);
         cameraManager.middleYposi = new Vector3(0, gamemanager.GetMiddleList().position.y, 0);//中間要素のy座標をCameraManagerに渡しておく。先にしておかないと爆破destroyでそのゾンビ消えちゃうから
         height = gamemanager.GetHighestObject().transform.position.y / 1.25f;
@@ -67,6 +70,7 @@ public class BoomManager : MonoBehaviour
             q = Quaternion.identity;
             //配置
             var obj = Utility.Instantiate(boomPrefab, placePosition, q);
+            bombSE.Play();
 
             if (i != 0 && i == ListSize - 4)//４匹目が爆発するときにズームアウトと減速
             {
