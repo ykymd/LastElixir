@@ -69,3 +69,4 @@ MonoBehaviour:
   - {fileID: 1000013948320674, guid: 638975eb709d545c9b9ec42bc2c54002, type: 2}
   - {fileID: 1000014267292712, guid: 97bc93abc7c5e4041a475489b687730e, type: 2}
   soundManager: {fileID: 0}
+  soundeffect: {fileID: 0}

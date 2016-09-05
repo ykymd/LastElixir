@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SoundManager soundManager = null;
 
+    [SerializeField]
+    private SoundEffect soundeffect = null;
+
     private CameraManager cameMane;
     //カメラチェンジ用のスクリプト
 
@@ -208,11 +211,14 @@ public class GameManager : MonoBehaviour
                 nextZombie.AddRange(list);
             }
 
+            soundeffect.Release.Play();
+
             // イベント発生の確認
             if (!IsFeverTime) piledZombies++;
             if (piledZombies == nextEventTime)
             {
                 Debug.Log("EVENT!!");
+                soundeffect.EventStart.Play();
                 //eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
                 eventType = (eventcount % 3 == 2) ? 0 : 1;
                 eventcount++;
@@ -294,6 +300,7 @@ public class GameManager : MonoBehaviour
         }
         movingBlock = obj;
         zombieMoving = true;
+        soundeffect.Catch.Play();
  
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
     }
@@ -378,11 +385,13 @@ public class GameManager : MonoBehaviour
             if (direction.x < 0)
             {
                 Debug.Log("LEFT");
+                soundeffect.AngleChange.Play();
                 nextZombieImage.transform.Rotate(new Vector3(0, 0, 90f));
             }
             else if (direction.x > 0)
             {
                 Debug.Log("RIGHT");
+                soundeffect.AngleChange.Play();
                 nextZombieImage.transform.Rotate(new Vector3(0, 0, -90f));
             }
         }
@@ -406,6 +415,7 @@ public class GameManager : MonoBehaviour
         int ListSize = ReturnListSize(); //要素数を保存
         GameObject block;
         soundManager.currentBgm.Stop();
+        soundeffect.Collapse.Play();
 
         for (int i = ListSize - 1; i >= 0; i--)
         {
