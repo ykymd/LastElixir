@@ -31,8 +31,8 @@ public class CameraManager : MonoBehaviour {
         //Debug.Log("previoustCamera"+refObj.transform.position);
         //Debug.Log("nextCamera"+this.transform.position);
         //trackingcamera.TrackObject = null ;//これでBackGroundスクリプトから怒られなくなる
-        Debug.Log("ChangeCamera!!");
-        this.transform.position = new Vector3 (0.0F,middleYposi.y,-5f);;
+        Debug.Log("ChangeCamera!!andMiddle"+middleYposi.y);
+        this.transform.position = new Vector3 (0.0F,middleYposi.y,-10f);;
         refObj.SetActiveRecursively(false);
     }
 }
