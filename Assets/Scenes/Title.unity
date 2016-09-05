@@ -440,8 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a952b3d984ec84e39b113a5a85632924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  TrackObject: {fileID: 0}
 --- !u!23 &1204477952
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -535,7 +533,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7a1ddc8e621dc4cefafc6e4ee080d6cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7c86a0d6fd2f4abb95fcbe5da7be0c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
