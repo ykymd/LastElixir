@@ -301,6 +301,7 @@ MonoBehaviour:
   SubCamera: {fileID: 1378546246}
   boomPrefab: {fileID: 100002, guid: f36e3b1ff9efea849bc40abe16c513a0, type: 2}
   bombSE: {fileID: 81814884}
+  soundManager: {fileID: 1000237307}
   ResultBoard: {fileID: 1000012575589986, guid: 14d4c5282dc004d93a8e3d817d1b721b,
     type: 2}
 --- !u!4 &81814883
@@ -1735,7 +1736,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1378546246}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!92 &1378546249
 Behaviour:
   m_ObjectHideFlags: 0

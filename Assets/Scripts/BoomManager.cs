@@ -16,6 +16,8 @@ public class BoomManager : MonoBehaviour
     public GameObject boomPrefab;
     [SerializeField]
     private AudioSource bombSE = null;
+    [SerializeField]
+    private SoundManager soundManager = null;
 
     int ListSize;
     GameObject block;
@@ -98,7 +100,7 @@ public class BoomManager : MonoBehaviour
         int rank = (int)(height / 5f);
         float next = 5f - (height % 5f);
         resultBoard.SetScore((int)height, rank, next);
-
+        soundManager.StartResult();
     }
 
 }
