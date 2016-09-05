@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     private Rect judgeArea = new Rect(0, 0, 0, 0);
     private GameObject judgeTarget = null;
     private bool IsGameOver = false;
-    private bool IsFeverTime = false;
+    public bool IsFeverTime = false;
 
     private float maxHeight = 0f;
 
