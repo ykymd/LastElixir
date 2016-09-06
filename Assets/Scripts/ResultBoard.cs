@@ -18,7 +18,7 @@ public class ResultBoard : MonoBehaviour
         NextRank.text = string.Format("{0}m", ToRoundDown(next, 2));
     }
 
-    private string GetRank(int rank)
+    private static string GetRank(int rank)
     {
         switch (rank)
         {
@@ -42,14 +42,11 @@ public class ResultBoard : MonoBehaviour
                 return "銀河崩壊級";
         }
 
-        if (rank > 9)
-            return "神様困惑級";
-
-        return "-----";
+        return rank > 9 ? "神様困惑級" : "-----";
     }
 
     public static double ToRoundDown(float dValue, int iDigits) {
-        float dCoef = (float)System.Math.Pow(10, iDigits);
+        var dCoef = (float)System.Math.Pow(10, iDigits);
 
         return dValue > 0 ? System.Math.Floor  (dValue * dCoef) / dCoef:
             System.Math.Ceiling(dValue * dCoef) / dCoef;

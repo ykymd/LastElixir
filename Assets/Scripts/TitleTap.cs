@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
-public class TitleTap : MonoBehaviour {
-
-	 void Update()
+namespace Assets.Scripts
+{
+    public class TitleTap : MonoBehaviour
     {
-        if (MultiTouch.GetTouch() == TouchInfo.Began)//ワンクリックまたはタッチした場合
+        private void Update()
         {
-			SceneManager.LoadScene ("Main");
-		}
-	}
-	
+            if (MultiTouch.GetTouch() == TouchInfo.Began)//ワンクリックまたはタッチした場合
+            {
+                SceneManager.LoadScene("Main");
+            }
+        }
+
+    }
 }

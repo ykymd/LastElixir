@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using Assets.Scripts;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,56 +37,56 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SoundEffect soundeffect = null;
 
-    private CameraManager cameMane;
+    private CameraManager _cameMane;
     //カメラチェンジ用のスクリプト
 
-    public static List<GameObject> blList = new List<GameObject>();
+    public static List<GameObject> BlList = new List<GameObject>();
     //落ちたブロックの参照保存先
-    private GameObject blocks;
-    private GameObject movingBlock;
-    private bool zombieMoving = false;
-    private List<int> nextZombie;
-    private int nextZombieNum = -1;
+    private GameObject _blocks;
+    private GameObject _movingBlock;
+    private bool _zombieMoving = false;
+    private List<int> _nextZombie;
+    private int _nextZombieNum = -1;
 
     // Flick
-    private Vector3 startTouchPos = Vector3.zero;
-    private Vector3 endTouchPos = Vector3.zero;
+    private Vector3 _startTouchPos = Vector3.zero;
+    private Vector3 _endTouchPos = Vector3.zero;
     public bool BomFlag = false;
 
     // ゾンビを積んだ回数
-    private int piledZombies = 0;
+    private int _piledZombies = 0;
     // 次のイベント発生タイミング
-    private int nextEventTime = -1;
-    private int eventcount = 0;
-    private int eventType = 0;
+    private int _nextEventTime = -1;
+    private int _eventcount = 0;
+    private int _eventType = 0;
 
     // ゲームオーバー判定
-    private Rect judgeArea = new Rect(0, 0, 0, 0);
-    private GameObject judgeTarget = null;
-    private bool IsGameOver = false;
+    private Rect _judgeArea = new Rect(0, 0, 0, 0);
+    private GameObject _judgeTarget = null;
+    private bool _isGameOver = false;
     public bool IsFeverTime = false;
 
-    private float maxHeight = 0f;
+    private float _maxHeight = 0f;
 
-    void Start()
+    private void Start()
     {
-        blocks = new GameObject("Blocks");
+        _blocks = new GameObject("Blocks");
 
-        nextZombie = GenerateZombieList();
-        nextZombieNum = nextZombie[0];
-        nextZombie.RemoveAt(0);
-        piledZombies = 0;
-        nextEventTime = GenerateNextEventTime(piledZombies);
-        eventcount = 0;
-        eventType = 0;
-        IsGameOver = false;
+        _nextZombie = GenerateZombieList();
+        _nextZombieNum = _nextZombie[0];
+        _nextZombie.RemoveAt(0);
+        _piledZombies = 0;
+        _nextEventTime = GenerateNextEventTime(_piledZombies);
+        _eventcount = 0;
+        _eventType = 0;
+        _isGameOver = false;
         //StartCoroutine(FeverTime());
     }
 
     private List<int> GenerateZombieList()
     {
         var nextZombieList = new List<int>();
-        for (int i = 0; i < block.Length; i++)
+        for (var i = 0; i < block.Length; i++)
         {
             nextZombieList.Add(i);
         }
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateNextZombieImage()
     {
-        if (nextZombieNum == -1 || zombieMoving)
+        if (_nextZombieNum == -1 || _zombieMoving)
         {
             nextZombieImage.gameObject.SetActive(false);
             //nextZombieImage2.gameObject.SetActive(false);
@@ -104,31 +105,17 @@ public class GameManager : MonoBehaviour
         else
         {
             nextZombieImage.gameObject.SetActive(true);
-            if (nextZombieNum != -2)
-            {
-                nextZombieImage.sprite = block[nextZombieNum].GetComponent<SpriteRenderer>().sprite;
-            }
-            else
-            {
-                nextZombieImage.sprite = jamBlock.GetComponent<SpriteRenderer>().sprite;
-            }
+            nextZombieImage.sprite = _nextZombieNum != -2 ? block[_nextZombieNum].GetComponent<SpriteRenderer>().sprite : jamBlock.GetComponent<SpriteRenderer>().sprite;
             nextZombieImage2.gameObject.SetActive(true);
-            var num = nextZombie[0];
-            if (num != -2)
-            {
-                nextZombieImage2.sprite = block[num].GetComponent<SpriteRenderer>().sprite;
-            }
-            else
-            {
-                nextZombieImage2.sprite = jamBlock.GetComponent<SpriteRenderer>().sprite;
-            }
+            var num = _nextZombie[0];
+            nextZombieImage2.sprite = num != -2 ? block[num].GetComponent<SpriteRenderer>().sprite : jamBlock.GetComponent<SpriteRenderer>().sprite;
         }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (IsGameOver)
+        if (_isGameOver)
             return;
 
         if (BomFlag == false)
@@ -146,105 +133,99 @@ public class GameManager : MonoBehaviour
     }
 
     private void CheckGameOver()
-    {        
-        if (judgeArea.width == 0)
+    {
+        if (_judgeArea.width == 0)
             return;
-        if(judgeTarget != null){
-        if (!judgeArea.Contains(judgeTarget.transform.position))
-        {
-            var obj = GetHighestObject();
-            maxHeight = obj.transform.position.y;
-            FailureAction();
-            StartCoroutine(ShowResult());
-        }
-        }
+        if (_judgeTarget == null) return;
+        if (_judgeArea.Contains(_judgeTarget.transform.position)) return;
+        var obj = GetHighestObject();
+        _maxHeight = obj.transform.position.y;
+        FailureAction();
+        StartCoroutine(ShowResult());
     }
 
-    private bool CheckTapMoon()
+    private static bool CheckTapMoon()
     {
         var position = MultiTouch.GetTouchPosition();
         var aTapPoint = Camera.main.ScreenToWorldPoint(position);
-        var aCollider2d = Physics2D.OverlapPoint(aTapPoint);
+        var aCollider2D = Physics2D.OverlapPoint(aTapPoint);
 
-        if (aCollider2d)
-        {
-            GameObject obj = aCollider2d.transform.gameObject;
-            return obj.name == "Moon";
-        }
-
-        return false;
+        if (!aCollider2D) return false;
+        var obj = aCollider2D.transform.gameObject;
+        return obj.name == "Moon";
     }
 
     private void MoveBlock()
     {
-        if (!zombieMoving)
+        if (!_zombieMoving)
         {
             return;
         }
-        else if (MultiTouch.GetTouch() == TouchInfo.Moved)
+        switch (MultiTouch.GetTouch())
         {
-            Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-            movingBlock.transform.position = position;
-        }
-        else if (MultiTouch.GetTouch() == TouchInfo.Ended)
-        {
-            //Time.timeScale = 1.0F;
-            if (CheckTapMoon())
-            {
-                nextZombieImage.transform.rotation = movingBlock.transform.rotation;
-                Destroy(movingBlock);
-                movingBlock = null;
-                zombieMoving = false;
-                return;
-            }
-            movingBlock.GetComponent<Rigidbody2D>().Resume(movingBlock.gameObject);
-            movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
-            foreach (var collider in movingBlock.GetComponents<BoxCollider2D>())
-            {
-                collider.enabled = true;
-            }
-            blList.Add(movingBlock);//落ちたブロックを順々に保存
-            if (trackingcamera != null) trackingcamera.TrackObject = movingBlock;
-            movingBlock = null;
-            zombieMoving = false;
-            nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
-            nextZombieNum = nextZombie[0];
-            nextZombie.RemoveAt(0);
-            if (nextZombie.Count() <= 1)
-            {
-                var list = GenerateZombieList();
-                nextZombie.AddRange(list);
-            }
-
-            soundeffect.Release.Play();
-
-            // イベント発生の確認
-            if (!IsFeverTime) piledZombies++;
-            if (piledZombies == nextEventTime)
-            {
-                Debug.Log("EVENT!!");
-                soundeffect.EventStart.Play();
-                //eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
-                eventType = (eventcount % 3 == 2) ? 0 : 1;
-                eventcount++;
-                nextEventTime = GenerateNextEventTime(piledZombies);
-
-                switch (eventType)
+            case TouchInfo.Moved:
+                Vector2 position = MultiTouch.GetTouchWorldPosition(Camera.main);
+                _movingBlock.transform.position = position;
+                break;
+            case TouchInfo.Ended:
+                //Time.timeScale = 1.0F;
+                if (CheckTapMoon())
                 {
-                    case 0:
-                        // フィーバータイム
-                        StartCoroutine(FeverTime());
-                        break;
-                    case 1:
-                        // お邪魔ゾンビ出現
-                        StartCoroutine(AppearJamZombie());
-                        break;
+                    nextZombieImage.transform.rotation = _movingBlock.transform.rotation;
+                    Destroy(_movingBlock);
+                    _movingBlock = null;
+                    _zombieMoving = false;
+                    return;
                 }
-            }
+                _movingBlock.GetComponent<Rigidbody2D>().Resume(_movingBlock.gameObject);
+                _movingBlock.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 1f);
+                foreach (var collider in _movingBlock.GetComponents<BoxCollider2D>())
+                {
+                    collider.enabled = true;
+                }
+                BlList.Add(_movingBlock);//落ちたブロックを順々に保存
+                if (trackingcamera != null) trackingcamera.TrackObject = _movingBlock;
+                _movingBlock = null;
+                _zombieMoving = false;
+                nextZombieImage.transform.LookAt(nextZombieImage.transform.position + Vector3.forward);
+                _nextZombieNum = _nextZombie[0];
+                _nextZombie.RemoveAt(0);
+                if (_nextZombie.Count() <= 1)
+                {
+                    var list = GenerateZombieList();
+                    _nextZombie.AddRange(list);
+                }
+
+                soundeffect.Release.Play();
+
+                // イベント発生の確認
+                if (!IsFeverTime) _piledZombies++;
+                if (_piledZombies == _nextEventTime)
+                {
+                    Debug.Log("EVENT!!");
+                    soundeffect.EventStart.Play();
+                    //eventType = (eventType % 3 == 2) ? 0 : UnityEngine.Random.Range(1, 3);
+                    _eventType = (_eventcount % 3 == 2) ? 0 : 1;
+                    _eventcount++;
+                    _nextEventTime = GenerateNextEventTime(_piledZombies);
+
+                    switch (_eventType)
+                    {
+                        case 0:
+                            // フィーバータイム
+                            StartCoroutine(FeverTime());
+                            break;
+                        case 1:
+                            // お邪魔ゾンビ出現
+                            StartCoroutine(AppearJamZombie());
+                            break;
+                    }
+                }
+                break;
         }
     }
 
-    IEnumerator FeverTime()
+    private IEnumerator FeverTime()
     {
         var alert = Utility.InstantiateGetComponent<EventAlert>(Camera.main.gameObject, eventAlerts[0]);
         Freeze();
@@ -258,10 +239,10 @@ public class GameManager : MonoBehaviour
         soundManager.FinishFeverTime();
     }
 
-    IEnumerator AppearJamZombie()
+    private IEnumerator AppearJamZombie()
     {
         var alert = Utility.InstantiateGetComponent<EventAlert>(Camera.main.gameObject, eventAlerts[1]);
-        nextZombie.Insert(0, -2);
+        _nextZombie.Insert(0, -2);
 
         yield return new WaitForSeconds(2f);
 
@@ -276,65 +257,60 @@ public class GameManager : MonoBehaviour
 
     public void Freeze()
     {
-        foreach (var block in blList)
+        foreach (var bl in BlList)
         {
-            block.GetComponent<Rigidbody2D>().Pause(block.gameObject);
+            bl.GetComponent<Rigidbody2D>().Pause(bl.gameObject);
         }
     }
 
     public void GenerateZombie()
     {
-        if (IsGameOver)
+        if (_isGameOver)
             return;
 
-        Vector3 position = MultiTouch.GetTouchWorldPosition(Camera.main);
-        GameObject prefab;
-        if (nextZombieNum == -2)
-            prefab = jamBlock;
-        else
-            prefab = block[nextZombieNum];
-        var obj = Utility.Instantiate(blocks, prefab);
+        var position = MultiTouch.GetTouchWorldPosition(Camera.main);
+        var prefab = _nextZombieNum == -2 ? jamBlock : block[_nextZombieNum];
+        var obj = Utility.Instantiate(_blocks, prefab);
         obj.GetComponent<Rigidbody2D>().Pause(obj.gameObject);
         obj.transform.position = position;
         Debug.Log("ZombiePosition" + obj.transform.position);
         obj.transform.rotation = nextZombieImage.transform.rotation;
         obj.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0.5f);
-        foreach (var collider in obj.GetComponents<BoxCollider2D>())
+        foreach (var boxCollider2D in obj.GetComponents<BoxCollider2D>())
         {
-            collider.enabled = false;
+            boxCollider2D.enabled = false;
         }
-        movingBlock = obj;
-        zombieMoving = true;
+        _movingBlock = obj;
+        _zombieMoving = true;
         soundeffect.Catch.Play();
- 
+
         obj.GetComponent<GetTopPosition>().CollisionAction = GetTop;
     }
 
-    void GetTop(GameObject obj)//Actionでひも付けて呼び出されている
+    private void GetTop(GameObject obj)//Actionでひも付けて呼び出されている
     {
         Debug.Log("Cpllision");
-        GameObject block = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
+        var lastList = GetLastList(); //最後尾のブロック要素をオブジェクトに保存
 
-        if(block!=null){
-        Vector3 position = block.transform.position;//そのブロックの座標を取ってくる
+        if (lastList == null) return;
+        var position = lastList.transform.position;//そのブロックの座標を取ってくる
         Debug.Log(position.y);
         //var obj = GetHighestObject();
         //Debug.Log("HIGH:" + obj.transform.position);
 
-        float range = 1f;
-        judgeArea = new Rect(position.x - range, position.y - range / 2, range*2, range);
-        Debug.Log(judgeArea);
-        judgeTarget = obj;
+        const float range = 1f;
+        _judgeArea = new Rect(position.x - range, position.y - range / 2, range * 2, range);
+        Debug.Log(_judgeArea);
+        _judgeTarget = obj;
         if (IsFeverTime)
-            obj.GetComponent<Rigidbody2D>().Pause(block.gameObject);
+            obj.GetComponent<Rigidbody2D>().Pause(lastList.gameObject);
         //obj.GetComponent<GetTopPosition>().enabled = false;
-        }
     }
 
     public GameObject GetHighestObject()
     {
         GameObject highest = null;
-        foreach (var obj in blList)
+        foreach (var obj in BlList)
         {
             if (highest == null)
             {
@@ -354,24 +330,24 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetLastList()//Listの最後尾の要素を渡す
     {
-        if (blList.Count == 0)
+        if (BlList.Count == 0)
         {
             return null;
         }
-        GameObject obj = blList[blList.Count - 1];
+        var obj = BlList[BlList.Count - 1];
         return obj;
     }
 
     public GameObject GetAndRemoveList()
     {
-        GameObject obj = blList[blList.Count - 1];//Listの最後尾の要素を渡す
-        blList.RemoveAt(blList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
+        GameObject obj = BlList[BlList.Count - 1];//Listの最後尾の要素を渡す
+        BlList.RemoveAt(BlList.Count - 1);//そして消す、次回呼ばれたときに最後尾から順々に渡すために
         return obj;
     }
 
     public Transform GetMiddleList()
     {
-        GameObject obj = blList[(int)(blList.Count / 2)];//Listの中間の要素を渡す
+        var obj = BlList[BlList.Count / 2];//Listの中間の要素を渡す
         Debug.Log("MiddleOriginalPosi" + obj.transform.position.y);
         return obj.transform;//中間要素の位置情報渡す
     }
@@ -380,15 +356,15 @@ public class GameManager : MonoBehaviour
     {
         if (MultiTouch.GetTouch() == TouchInfo.Began)
         {
-            startTouchPos = MultiTouch.GetTouchPosition();
+            _startTouchPos = MultiTouch.GetTouchPosition();
         }
         else if (MultiTouch.GetTouch() == TouchInfo.Ended)
         {
-            endTouchPos = MultiTouch.GetTouchPosition();
-            var direction = endTouchPos - startTouchPos;
+            _endTouchPos = MultiTouch.GetTouchPosition();
+            var direction = _endTouchPos - _startTouchPos;
 
-            var aTapPoint = Camera.main.ScreenToWorldPoint(startTouchPos);
-            var aCollider2d = Physics2D.OverlapPoint(aTapPoint);
+            var aTapPoint = Camera.main.ScreenToWorldPoint(_startTouchPos);
+            var aCollider2D = Physics2D.OverlapPoint(aTapPoint);
 
             if (direction.x < 0)
             {
@@ -407,40 +383,39 @@ public class GameManager : MonoBehaviour
 
     public int ReturnListSize()//Listの要素数を返す
     {
-        return blList.Count;
+        return BlList.Count;
     }
 
     public void Gameover()
     {//カメラのチェンジ
-        SubCamera.SetActiveRecursively(true);
-        cameMane = SubCamera.GetComponent<CameraManager>();
-        cameMane.CameraZoomOut();
+        SubCamera.SetActive(true);
+        _cameMane = SubCamera.GetComponent<CameraManager>();
+        _cameMane.CameraZoomOut();
     }
 
     private void FailureAction()
     {
-        IsGameOver = true;
-        int ListSize = ReturnListSize(); //要素数を保存
-        GameObject block;
+        _isGameOver = true;
+        var listSize = ReturnListSize(); //要素数を保存
         soundManager.currentBgm.Stop();
         soundeffect.Collapse.Play();
 
-        for (int i = ListSize - 1; i >= 0; i--)
+        for (var i = listSize - 1; i >= 0; i--)
         {
-            block = GetAndRemoveList(); //最後尾のブロック要素をオブジェクトに保存
+            var block = GetAndRemoveList(); //最後尾のブロック要素をオブジェクトに保存
             block.GetComponent<Rigidbody2D>().Resume(block.gameObject);
             block.GetComponent<Rigidbody2D>().velocity = new Vector3(1.0f * UnityEngine.Random.Range(-5.0f, 5.0f), 10.0f * UnityEngine.Random.value, 0);
         }
     }
 
-    IEnumerator ShowResult()
+    private IEnumerator ShowResult()
     {
         yield return new WaitForSeconds(3);
         soundManager.StartResult();
         var resultBoard = Utility.InstantiateGetComponent<ResultBoard>(null, ResultBoard);
-        var height = maxHeight / 1.25f;
-        int rank = (IsGameOver) ? -1 : (int)(height / 5f);
-        float next = 5f - (height % 5f);
+        var height = _maxHeight / 1.25f;
+        var rank = (_isGameOver) ? -1 : (int)(height / 5f);
+        var next = 5f - (height % 5f);
         resultBoard.SetScore((int)height, rank, next);
     }
 }

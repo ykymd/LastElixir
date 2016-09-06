@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class ResultButton : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField]
-    private AudioSource clicked = null;
-
-    public void GoToTitleScene()
+    public class ResultButton : MonoBehaviour
     {
-        clicked.Play();
-        SceneManager.LoadScene("Title");
-    }
+        [SerializeField]
+        private AudioSource clicked = null;
 
-    public void Retry()
-    {
-        clicked.Play();
-        SceneManager.LoadScene("Main");
+        public void GoToTitleScene()
+        {
+            clicked.Play();
+            SceneManager.LoadScene("Title");
+        }
+
+        public void Retry()
+        {
+            clicked.Play();
+            SceneManager.LoadScene("Main");
+        }
     }
 }

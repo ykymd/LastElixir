@@ -1,32 +1,20 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
+using UnityEngine;
 
-public class GetTopPosition : MonoBehaviour
+namespace Assets.Scripts
 {
-    private bool isTouched = true;
-
-    public Action<GameObject> CollisionAction;
-
-    // Use this for initialization
-    void Start()
+    public class GetTopPosition : MonoBehaviour
     {
-    }
-	
-    // Update is called once per frame
-    void Update()
-    {
-	
-    }
+        private bool _isTouched = true;
 
-    //オブジェクトが衝突したとき
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (isTouched && collision.gameObject.tag == "Zombie" && CollisionAction != null)
+        public Action<GameObject> CollisionAction;
+
+        //オブジェクトが衝突したとき
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            CollisionAction(this.gameObject);
-            isTouched = false;
+            if (!_isTouched || collision.gameObject.tag != "Zombie" || CollisionAction == null) return;
+            CollisionAction(gameObject);
+            _isTouched = false;
         }
     }
 }

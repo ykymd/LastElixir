@@ -1,22 +1,24 @@
-﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
+﻿using DG.Tweening;
+using UnityEngine;
 
-public class EventAlert : MonoBehaviour
+namespace Assets.Scripts
 {
-    // Use this for initialization
-    void Start()
+    public class EventAlert : MonoBehaviour
     {
-        transform.position = transform.position - Vector3.up * 7f;
-        Sequence seq = DOTween.Sequence();
-        var move = new Vector3(0f, -2f, 1f);
-        seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack));
-    }
+        // Use this for initialization
+        private void Start()
+        {
+            transform.position = transform.position - Vector3.up * 7f;
+            var seq = DOTween.Sequence();
+            var move = new Vector3(0f, -2f, 1f);
+            seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack));
+        }
 
-    public void Ended()
-    {
-        Sequence seq = DOTween.Sequence();
-        var move = new Vector3(0f, -7f, 1f);
-        seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack).OnComplete(() => Destroy(this.gameObject)));
+        public void Ended()
+        {
+            var seq = DOTween.Sequence();
+            var move = new Vector3(0f, -7f, 1f);
+            seq.Append(transform.DOLocalMove(move, 1f).SetEase(Ease.InOutBack).OnComplete(() => Destroy(gameObject)));
+        }
     }
 }

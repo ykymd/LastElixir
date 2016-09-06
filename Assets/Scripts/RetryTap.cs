@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
-public class RetryTap : MonoBehaviour
+namespace Assets.Scripts
 {
-    public void ButtonPush()
+    public class RetryTap : MonoBehaviour
     {
-        SceneManager.LoadScene ("Main");
+        public void ButtonPush()
+        {
+            SceneManager.LoadScene ("Main");
+        }
     }
 }

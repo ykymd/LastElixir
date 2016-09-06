@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Block : MonoBehaviour
+namespace Assets.Scripts
 {
-    // Update is called once per frame
-    void Update()
+    public class Block : MonoBehaviour
     {
-        if (this.transform.position.y <= -10f)
+        // Update is called once per frame
+        private void Update()
         {
-            Destroy(this.gameObject);
+            if (transform.position.y <= -10f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

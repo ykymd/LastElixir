@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
 
-public class Background : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField]
-    private GameManager gameManager = null;
-
-    void Update()
+    public class Background : MonoBehaviour
     {
-        if (gameManager.IsFeverTime)
+        [SerializeField]
+        private GameManager gameManager = null;
+
+        private void Update()
         {
-            GetComponent<SpriteRenderer>().color = new Color(255, 0, 255);
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+            GetComponent<SpriteRenderer>().color = gameManager.IsFeverTime ? new Color(255, 0, 255) : new Color(255, 255, 255);
         }
     }
 }

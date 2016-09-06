@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Blinker : MonoBehaviour
+namespace Assets.Scripts
 {
-    private float nextTime;
-    public float interval = 1.0f;
-    // 点滅周期
- 
-    // Use this for initialization
-    void Start()
+    public class Blinker : MonoBehaviour
     {
-        nextTime = Time.time;
-    }
+        private float _nextTime;
+        public float Interval = 1.0f;
+        // 点滅周期
  
-    // Update is called once per frame
-    void Update()
-    {
-        if (Time.time > nextTime)
+        // Use this for initialization
+        private void Start()
         {
+            _nextTime = Time.time;
+        }
+ 
+        // Update is called once per frame
+        private void Update()
+        {
+            if (!(Time.time > _nextTime)) return;
             GetComponent<SpriteRenderer>().enabled = !GetComponent<SpriteRenderer>().enabled;
  
-            nextTime += interval;
+            _nextTime += Interval;
         }
     }
 }
